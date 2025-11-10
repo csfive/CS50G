@@ -22,7 +22,7 @@ function love.keypressed(key)
 end
 
 function love.draw()
-    push:apply('start')
+    push:start()
     love.graphics.printf(
         'Hello Pong!',
         0,
@@ -30,5 +30,5 @@ function love.draw()
         VIRTUAL_WIDTH,
         'center'
     )
-    push:apply('end')
+    push:finish()
 end
