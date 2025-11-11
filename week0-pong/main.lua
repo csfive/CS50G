@@ -9,10 +9,10 @@ VIRTUAL_WIDTH = 432
 VIRTUAL_HEIGHT = 243
 
 function love.load()
-    local smallFont = love.graphics.newFont('font.ttf', 8)
-
-    love.window.setTitle('Pong')
     love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.window.setTitle('Pong')
+
+    local smallFont = love.graphics.newFont('font.ttf', 8)
     love.graphics.setFont(smallFont)
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
