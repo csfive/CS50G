@@ -1,0 +1,9 @@
+{
+    "diagnostics.globals": [
+        "love"
+    ],
+    "diagnostics.disable": [
+        "duplicate-set-field",
+        "lowercase-global"
+    ]
+}

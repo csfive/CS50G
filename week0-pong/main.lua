@@ -1,4 +1,3 @@
-love = require 'love'
 -- https://github.com/Ulydev/push
 push = require 'push'
 -- https://github.com/vrld/hump/blob/master/class.lua
@@ -70,7 +69,7 @@ function love.keypressed(key)
         love.event.quit()
     end
 
-    if key == 'enter' or key == 'return' or key == 'space' then
+    if key == 'enter' or key == 'return' then
         if gameState == 'start' then
             gameState = 'play'
         else
@@ -85,14 +84,22 @@ function love.draw()
     love.graphics.clear(40 / 255, 45 / 255, 52 / 255, 255 / 255)
     love.graphics.setFont(smallFont)
     if gameState == 'start' then
-         love.graphics.printf('Hello Start State!', 0, 20, VIRTUAL_WIDTH, 'center')
-     else
-         love.graphics.printf('Hello Play State!', 0, 20, VIRTUAL_WIDTH, 'center')
-     end
+        love.graphics.printf('Hello Start State!', 0, 20, VIRTUAL_WIDTH, 'center')
+    else
+        love.graphics.printf('Hello Play State!', 0, 20, VIRTUAL_WIDTH, 'center')
+    end
 
     player1:render()
     player2:render()
     ball:render()
 
+    displayFPS()
+
     push:finish()
+end
+
+function displayFPS()
+    love.graphics.setFont(smallFont)
+    love.graphics.setColor(0, 255 / 255, 0, 255 / 255)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 20, 10)
 end
