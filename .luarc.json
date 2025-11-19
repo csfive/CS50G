@@ -4,6 +4,8 @@
     ],
     "diagnostics.disable": [
         "duplicate-set-field",
-        "lowercase-global"
+        "lowercase-global",
+        "deprecated",
+        "undefined-global"
     ]
 }
