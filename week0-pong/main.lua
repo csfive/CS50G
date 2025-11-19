@@ -81,8 +81,8 @@ function love.update(dt)
         end
 
         if ball.x < 0 then
-            -- 左边出界，右边 2 号得分，得分继续发球
-            servingPlayer = 2
+            -- 左边出界，右边 2 号得分，得分后对面 1 号发球
+            servingPlayer = 1
             player2Score = player2Score + 1
 
             if player2Score == WINNING_SCORE then
@@ -95,7 +95,7 @@ function love.update(dt)
         end
 
         if ball.x > VIRTUAL_WIDTH then
-            servingPlayer = 1
+            servingPlayer = 2
             player1Score = player1Score + 1
 
             if player1Score == WINNING_SCORE then
