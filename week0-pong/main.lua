@@ -32,6 +32,8 @@ function love.load()
 
     -- 左边 1 号先发球
     servingPlayer = 1
+    winningPlayer = 0
+
     player1Score = 0
     player2Score = 0
 
