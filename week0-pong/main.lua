@@ -1,7 +1,7 @@
-push = require 'push'
-Class = require 'class'
-require 'Paddle'
-require 'Ball'
+push = require 'lib.push'
+Class = require 'lib.class'
+require 'src.paddle'
+require 'src.ball'
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 432, 243
@@ -13,15 +13,15 @@ function love.load()
     love.window.setTitle('Pong')
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('font.ttf', 8)
-    largeFont = love.graphics.newFont('font.ttf', 16)
-    scoreFont = love.graphics.newFont('font.ttf', 32)
+    smallFont = love.graphics.newFont('assets/font.ttf', 8)
+    largeFont = love.graphics.newFont('assets/font.ttf', 16)
+    scoreFont = love.graphics.newFont('assets/font.ttf', 32)
     love.graphics.setFont(smallFont)
 
     sounds = {
-        ['paddle_hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
-        ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
-        ['wall_hit'] = love.audio.newSource('sounds/wall_hit.wav', 'static')
+        ['paddle_hit'] = love.audio.newSource('assets/sounds/paddle_hit.wav', 'static'),
+        ['score'] = love.audio.newSource('assets/sounds/score.wav', 'static'),
+        ['wall_hit'] = love.audio.newSource('assets/sounds/wall_hit.wav', 'static')
     }
 
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
