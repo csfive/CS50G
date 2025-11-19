@@ -1,7 +1,7 @@
 push = require 'push'
 Class = require 'class'
-require 'paddle'
-require 'ball'
+require 'Paddle'
+require 'Ball'
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
 VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 432, 243
