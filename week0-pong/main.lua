@@ -1,17 +1,10 @@
--- https://github.com/Ulydev/push
 push = require 'push'
--- https://github.com/vrld/hump/blob/master/class.lua
 Class = require 'class'
+require 'paddle'
+require 'ball'
 
-require 'Paddle'
-require 'Ball'
-
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-
-VIRTUAL_WIDTH = 432
-VIRTUAL_HEIGHT = 243
-
+WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
+VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 432, 243
 PADDLE_SPEED = 200
 
 function love.load()
@@ -100,6 +93,6 @@ end
 
 function displayFPS()
     love.graphics.setFont(smallFont)
-    love.graphics.setColor(0, 255 / 255, 0, 255 / 255)
+    love.graphics.setColor(0, 1, 0)
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 20, 10)
 end
