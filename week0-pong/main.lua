@@ -42,6 +42,7 @@ function love.load()
     ball = Ball(VIRTUAL_WIDTH / 2 - 2, VIRTUAL_HEIGHT / 2 - 2, 4, 4)
 
     gameState = 'start'
+    aiMode = true
 end
 
 function love.resize(w, h)
@@ -136,13 +137,28 @@ function love.update(dt)
         player1.dy = 0
     end
 
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
+    if aiMode and gameState == 'play' then
+        local paddleCenter = player2.y + player2.height / 2
+        local ballCenter = ball.y + ball.height / 2
+        local deadZone = 8 -- 死区范围，减少抖动
+
+        if ballCenter < paddleCenter - deadZone then
+            player2.dy = -PADDLE_SPEED
+        elseif ballCenter > paddleCenter + deadZone then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
     else
-        player2.dy = 0
+        if love.keyboard.isDown('up') then
+            player2.dy = -PADDLE_SPEED
+        elseif love.keyboard.isDown('down') then
+            player2.dy = PADDLE_SPEED
+        else
+            player2.dy = 0
+        end
     end
+
 
     if gameState == 'play' then
         ball:update(dt)
@@ -155,6 +171,10 @@ end
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
+    end
+
+    if key == 'space' and gameState == 'start' then
+        aiMode = not aiMode
     end
 
     if key == 'enter' or key == 'return' then
@@ -184,19 +204,41 @@ function love.draw()
     displayScore()
 
     if gameState == 'start' then
+        love.graphics.setFont(largeFont)
         -- 0 到 width 是文本最大宽度，center 是对齐方式
+        love.graphics.printf('PONG', 0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Welcome to Pong!', 0, 10, VIRTUAL_WIDTH, 'center')
-        love.graphics.printf('Press Enter to begin!', 0, 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('Press Enter to begin!', 0, 30, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf(
+            'Press Space to toggle AI mode (' .. (aiMode and 'On' or 'Off') .. ')',
+            0, 40, VIRTUAL_WIDTH,
+            'center'
+        )
     elseif gameState == 'serve' then
         love.graphics.setFont(smallFont)
-        love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
+        if aiMode then
+            love.graphics.printf(
+                servingPlayer == 1 and "Player1's serve!" or "AI's serve!",
+                0, 10, VIRTUAL_WIDTH,
+                'center'
+            )
+        else
+            love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
+        end
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'play' then
         -- play 状态没有 UI
     elseif gameState == 'done' then
         love.graphics.setFont(largeFont)
-        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!', 0, 10, VIRTUAL_WIDTH, 'center')
+        if aiMode then
+            love.graphics.printf(
+                winningPlayer == 1 and "Player1 wins!" or "AI wins!",
+                0, 10, VIRTUAL_WIDTH,
+                'center'
+            )
+        else
+            love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!', 0, 10, VIRTUAL_WIDTH, 'center')
+        end
         love.graphics.setFont(smallFont)
         love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
     end
