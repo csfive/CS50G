@@ -3,10 +3,9 @@ Class = require 'class'
 require 'Ball'
 require 'Paddle'
 
--- actual window size
 WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
--- emulated window size by push
 VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 432, 243
+PADDLE_SPEED = 200
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
@@ -20,7 +19,7 @@ function love.load()
 
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,
-        resizable = false,
+        resizable = true,
         fullscreen = false
     })
     push.setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, { upscale = 'normal' })
@@ -35,7 +34,27 @@ function love.resize(w, h)
 end
 
 function love.update(dt)
+    -- player 1
+    if love.keyboard.isDown('w') then
+        player1.dy = -PADDLE_SPEED
+    elseif love.keyboard.isDown('s') then
+        player1.dy = PADDLE_SPEED
+    else
+        player1.dy = 0
+    end
 
+    -- player 2
+    if love.keyboard.isDown('up') then
+        player2.dy = -PADDLE_SPEED
+    elseif love.keyboard.isDown('down') then
+        player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
+    end
+
+    player1:update(dt)
+    player2:update(dt)
+    ball:update(dt)
 end
 
 function love.draw()
@@ -53,4 +72,10 @@ function displayFPS()
     love.graphics.setColor(0, 1, 0, 1)
     love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 10, 10)
     love.graphics.setColor(1, 1, 1, 1)
+end
+
+function love.keypressed(key)
+    if key == 'escape' then
+        love.event.quit()
+    end
 end
