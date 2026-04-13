@@ -3,5 +3,7 @@
     "editor.tabSize": 4,
     "editor.defaultFormatter": "sumneko.lua",
     "editor.formatOnSave": true
-  }
+  },
+  "Lua.diagnostics.globals": ["love"],
+  "Lua.diagnostics.disable": ["duplicate-set-field"]
 }
