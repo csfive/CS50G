@@ -5,5 +5,5 @@
     "editor.formatOnSave": true
   },
   "Lua.diagnostics.globals": ["love"],
-  "Lua.diagnostics.disable": ["duplicate-set-field", "lowercase-global"]
+  "Lua.diagnostics.disable": ["duplicate-set-field", "lowercase-global", "undefined-global"]
 }
