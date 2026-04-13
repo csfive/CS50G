@@ -1,0 +1,7 @@
+{
+  "[lua]": {
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "sumneko.lua",
+    "editor.formatOnSave": true
+  }
+}
