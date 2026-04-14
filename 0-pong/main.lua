@@ -139,12 +139,40 @@ function love.update(dt)
     end
 
     -- player 2
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
-    else
-        player2.dy = 0
+    -- if love.keyboard.isDown('up') then
+    --     player2.dy = -PADDLE_SPEED
+    -- elseif love.keyboard.isDown('down') then
+    --     player2.dy = PADDLE_SPEED
+    -- else
+    --     player2.dy = 0
+    -- end
+
+    -- AI player 2
+    local paddleCenter = player2.y + player2.height / 2
+    local ballCenter = ball.y + ball.height / 2
+    local deadZone = 5
+
+    if gameState == 'play' then
+        if ball.dx > 0 then
+            -- 飞来的时候，中心点去追球的中心点，死区避免抖动
+            if ballCenter < paddleCenter - deadZone then
+                player2.dy = -PADDLE_SPEED
+            elseif ballCenter > paddleCenter + deadZone then
+                player2.dy = PADDLE_SPEED
+            else
+                player2.dy = 0
+            end
+        else
+            -- 飞走的时候回中间位置待机，不会一直追球
+            local homeY = VIRTUAL_HEIGHT / 2 - player2.height / 2
+            if paddleCenter < homeY - deadZone then
+                player2.dy = PADDLE_SPEED
+            elseif paddleCenter > homeY + deadZone then
+                player2.dy = -PADDLE_SPEED
+            else
+                player2.dy = 0
+            end
+        end
     end
 
     player1:update(dt)
