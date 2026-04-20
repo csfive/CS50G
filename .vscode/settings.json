@@ -4,6 +4,15 @@
     "editor.defaultFormatter": "sumneko.lua",
     "editor.formatOnSave": true
   },
+  "Lua.workspace.library": [
+    // degit yorik1984/love2d-definitions/library .vscode/love2d-library
+    "${workspaceFolder}/.vscode/love2d-library",
+  ],
   "Lua.diagnostics.globals": ["love"],
-  "Lua.diagnostics.disable": ["duplicate-set-field", "lowercase-global", "undefined-global"]
+  "Lua.diagnostics.disable": [
+    "duplicate-set-field",
+    "lowercase-global",
+    "undefined-global",
+    "missing-parameter"
+  ]
 }
