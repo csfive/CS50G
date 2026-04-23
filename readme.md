@@ -1,4 +1,4 @@
-# Harvard CS50G (Game Development)
+# Harvard CS50G (2D Game Development)
 
 - [Course Link 2026](https://cs50.harvard.edu/games)
 - [Course Link 2018](https://cs50.harvard.edu/games/2018)
