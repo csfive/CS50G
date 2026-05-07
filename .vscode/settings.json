@@ -5,8 +5,8 @@
     "editor.formatOnSave": true
   },
   "Lua.workspace.library": [
-    // degit yorik1984/love2d-definitions/library .vscode/love2d-library
-    "${workspaceFolder}/.vscode/love2d-library",
+    // npx degit yorik1984/love2d-definitions/library .vscode/love2d-library
+    "${workspaceFolder}/.vscode/love2d-library"
   ],
   "Lua.diagnostics.globals": ["love"],
   "Lua.diagnostics.disable": [
