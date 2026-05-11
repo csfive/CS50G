@@ -13,6 +13,7 @@
     "duplicate-set-field",
     "lowercase-global",
     "undefined-global",
-    "missing-parameter"
+    "missing-parameter",
+    "redundant-parameter"
   ]
 }
