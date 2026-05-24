@@ -27,14 +27,6 @@ function love.load()
         ['particle'] = love.graphics.newImage('images/particle.png')
     }
 
-    -- gFrames = {
-    --     ['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24),
-    --     ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
-    --     ['balls'] = GenerateQuadsBalls(gTextures['main']),
-    --     ['bricks'] = GenerateQuadsBricks(gTextures['main']),
-    --     ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9)
-    -- }
-
     gSounds = {
         ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
@@ -55,6 +47,11 @@ function love.load()
     gSounds['music']:play()
     gSounds['music']:setLooping(true)
 
+    gStateMachine = StateMachine {
+        ['start'] = function() return StartState() end
+    }
+    gStateMachine:change('start')
+
     love.keyboard.keysPressed = {}
 end
 
@@ -63,6 +60,7 @@ function love.resize(w, h)
 end
 
 function love.update(dt)
+    gStateMachine:update(dt)
     love.keyboard.keysPressed = {}
 end
 
@@ -80,7 +78,6 @@ end
 
 function love.draw()
     push.start()
-
     local backgroundWidth = gTextures['background']:getWidth()
     local backgroundHeight = gTextures['background']:getHeight()
     love.graphics.draw(
@@ -90,8 +87,8 @@ function love.draw()
         VIRTUAL_WIDTH / (backgroundWidth - 1), -- 拉伸，铺满屏幕
         VIRTUAL_HEIGHT / (backgroundHeight - 1)
     )
+    gStateMachine:render()
     displayFPS()
-
     push.finish()
 end
 
