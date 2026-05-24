@@ -27,6 +27,14 @@ function love.load()
         ['particle'] = love.graphics.newImage('images/particle.png')
     }
 
+    gFrames = {
+        ['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24),
+        ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
+        ['balls'] = GenerateQuadsBalls(gTextures['main']),
+        ['bricks'] = GenerateQuadsBricks(gTextures['main']),
+        ['hearts'] = GenerateQuads(gTextures['hearts'], 10, 9)
+    }
+
     gSounds = {
         ['paddle-hit'] = love.audio.newSource('sounds/paddle_hit.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
@@ -48,7 +56,8 @@ function love.load()
     gSounds['music']:setLooping(true)
 
     gStateMachine = StateMachine {
-        ['start'] = function() return StartState() end
+        ['start'] = function() return StartState() end,
+        ['play'] = function() return PlayState() end
     }
     gStateMachine:change('start')
 
