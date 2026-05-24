@@ -1,5 +1,5 @@
-push = require 'push'
-Class = require 'class'
+push = require 'libs.push'
+Class = require 'libs.class'
 require 'Paddle'
 require 'Ball'
 
@@ -15,9 +15,9 @@ function love.load()
     love.window.setTitle("Pong")
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('font.ttf', 8)
-    largeFont = love.graphics.newFont('font.ttf', 16)
-    scoreFont = love.graphics.newFont('font.ttf', 32)
+    smallFont = love.graphics.newFont('fonts/font.ttf', 8)
+    largeFont = love.graphics.newFont('fonts/font.ttf', 16)
+    scoreFont = love.graphics.newFont('fonts/font.ttf', 32)
     love.graphics.setFont(smallFont)
 
     sounds = {

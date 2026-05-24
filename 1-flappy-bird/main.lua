@@ -1,5 +1,5 @@
-push = require 'push'
-Class = require 'class'
+push = require 'libs.push'
+Class = require 'libs.class'
 
 require 'StateMachine'
 require 'states.BaseState'
@@ -26,17 +26,17 @@ function love.load()
     love.window.setTitle('Flappy Bird')
     math.randomseed(os.time())
 
-    smallFont = love.graphics.newFont('font.ttf', 8)
-    mediumFont = love.graphics.newFont('flappy.ttf', 14)
-    flappyFont = love.graphics.newFont('flappy.ttf', 28)
-    hugeFont = love.graphics.newFont('flappy.ttf', 56)
+    smallFont = love.graphics.newFont('fonts/font.ttf', 8)
+    mediumFont = love.graphics.newFont('fonts/flappy.ttf', 14)
+    flappyFont = love.graphics.newFont('fonts/flappy.ttf', 28)
+    hugeFont = love.graphics.newFont('fonts/flappy.ttf', 56)
     love.graphics.setFont(flappyFont)
 
     gTextures = {
-        ['background'] = love.graphics.newImage('background.png'),
-        ['ground'] = love.graphics.newImage('ground.png'),
-        ['bird'] = love.graphics.newImage('bird.png'),
-        ['pipe'] = love.graphics.newImage('pipe.png')
+        ['background'] = love.graphics.newImage('images/background.png'),
+        ['ground'] = love.graphics.newImage('images/ground.png'),
+        ['bird'] = love.graphics.newImage('images/bird.png'),
+        ['pipe'] = love.graphics.newImage('images/pipe.png')
     }
 
     gSounds = {
