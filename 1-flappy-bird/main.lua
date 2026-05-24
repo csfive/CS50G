@@ -21,6 +21,25 @@ local backgroundScroll, groundScroll = 0, 0
 
 scrolling = true
 
+local function createMedalImage(r, g, b)
+    local size = 32
+    local data = love.image.newImageData(size, size)
+    local cx, cy, radius = (size - 1) / 2, (size - 1) / 2, 14
+
+    for y = 0, size - 1 do
+        for x = 0, size - 1 do
+            local dx, dy = x - cx, y - cy
+            if dx * dx + dy * dy <= radius * radius then
+                data:setPixel(x, y, r, g, b, 1)
+            else
+                data:setPixel(x, y, 0, 0, 0, 0)
+            end
+        end
+    end
+
+    return love.graphics.newImage(data)
+end
+
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Flappy Bird')
@@ -36,7 +55,10 @@ function love.load()
         ['background'] = love.graphics.newImage('images/background.png'),
         ['ground'] = love.graphics.newImage('images/ground.png'),
         ['bird'] = love.graphics.newImage('images/bird.png'),
-        ['pipe'] = love.graphics.newImage('images/pipe.png')
+        ['pipe'] = love.graphics.newImage('images/pipe.png'),
+        ['bronze'] = createMedalImage(0.8, 0.5, 0.2),
+        ['silver'] = createMedalImage(0.75, 0.75, 0.8),
+        ['gold'] = createMedalImage(1, 0.84, 0)
     }
 
     gSounds = {
@@ -44,6 +66,7 @@ function love.load()
         ['explosion'] = love.audio.newSource('sounds/explosion.wav', 'static'),
         ['hurt'] = love.audio.newSource('sounds/hurt.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
+        ['pause'] = love.audio.newSource('sounds/pause.wav', 'static'),
         ['music'] = love.audio.newSource('sounds/marios_way.mp3', 'static')
     }
 

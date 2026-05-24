@@ -4,28 +4,60 @@ PIPE_SPEED = 60
 PIPE_WIDTH, PIPE_HEIGHT = 70, 288
 BIRD_WIDTH, BIRD_HEIGHT = 38, 24
 
+local function drawPauseIcon()
+    local barWidth, barHeight, gap = 14, 48, 12
+    local totalWidth = barWidth * 2 + gap
+    local x = VIRTUAL_WIDTH / 2 - totalWidth / 2
+    local y = VIRTUAL_HEIGHT / 2 - barHeight / 2
+
+    love.graphics.setColor(1, 1, 1, 0.95)
+    love.graphics.rectangle('fill', x, y, barWidth, barHeight)
+    love.graphics.rectangle('fill', x + barWidth + gap, y, barWidth, barHeight)
+    love.graphics.setColor(1, 1, 1, 1)
+end
+
 function PlayState:init()
     self.bird = Bird()
     self.pipePairs = {}
-    self.timer = 0
+    self.spawnTimer = 0
+    self.spawnInterval = math.random(2, 3)
     self.score = 0
+    self.paused = false
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
 end
 
 function PlayState:update(dt)
-    self.timer = self.timer + dt
+    if love.keyboard.wasPressed('p') then
+        self.paused = not self.paused
+        gSounds['pause']:play()
 
-    if self.timer > 2 then
+        if self.paused then
+            scrolling = false
+            gSounds['music']:pause()
+        else
+            scrolling = true
+            gSounds['music']:play()
+        end
+    end
+
+    if self.paused then
+        return
+    end
+
+    self.spawnTimer = self.spawnTimer + dt
+
+    if self.spawnTimer > self.spawnInterval then
         local y = math.max(
             -PIPE_HEIGHT + 10,
             math.min(
                 self.lastY + math.random(-20, 20),
-                VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT
+                VIRTUAL_HEIGHT - GAP_MAX - PIPE_HEIGHT
             )
         )
         table.insert(self.pipePairs, PipePair(y))
         self.lastY = y
-        self.timer = 0
+        self.spawnTimer = 0
+        self.spawnInterval = math.random(2, 3)
     end
 
     for k, pair in pairs(self.pipePairs) do
@@ -79,10 +111,15 @@ function PlayState:render()
     love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
 
     self.bird:render()
+
+    if self.paused then
+        drawPauseIcon()
+    end
 end
 
 function PlayState:enter()
     scrolling = true
+    self.paused = false
 end
 
 function PlayState:exit()
