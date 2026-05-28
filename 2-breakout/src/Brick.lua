@@ -1,5 +1,13 @@
 Brick = Class {}
 
+paletteColors = {
+    [1] = { ['r'] = 99, ['g'] = 155, ['b'] = 255 },  -- blue
+    [2] = { ['r'] = 106, ['g'] = 190, ['b'] = 47 },  -- green
+    [3] = { ['r'] = 217, ['g'] = 87, ['b'] = 99 },   -- red
+    [4] = { ['r'] = 215, ['g'] = 123, ['b'] = 186 }, -- purple
+    [5] = { ['r'] = 251, ['g'] = 242, ['b'] = 54 }   -- gold
+}
+
 function Brick:init(x, y)
     self.x = x
     self.y = y
@@ -8,6 +16,15 @@ function Brick:init(x, y)
     self.tier = 0
     self.color = 1
     self.inPlay = true
+
+    self.psystem = love.graphics.newParticleSystem(gTextures['particle'], 64)
+    self.psystem:setParticleLifetime(0.5, 1)
+    self.psystem:setLinearAcceleration(-15, 0, 15, 80)
+    self.psystem:setEmissionArea('normal', 10, 10)
+end
+
+function Brick:update(dt)
+    self.psystem:update(dt)
 end
 
 function Brick:render()
@@ -21,6 +38,18 @@ function Brick:render()
 end
 
 function Brick:hit()
+    self.psystem:setColors(
+        paletteColors[self.color].r / 255,
+        paletteColors[self.color].g / 255,
+        paletteColors[self.color].b / 255,
+        55 * (self.tier + 1) / 255,
+        paletteColors[self.color].r / 255,
+        paletteColors[self.color].g / 255,
+        paletteColors[self.color].b / 255,
+        0
+    )
+    self.psystem:emit(64)
+
     gSounds['brick-hit-2']:stop()
     gSounds['brick-hit-2']:play()
 
@@ -37,4 +66,8 @@ function Brick:hit()
         gSounds['brick-hit-1']:stop()
         gSounds['brick-hit-1']:play()
     end
+end
+
+function Brick:renderParticles()
+    love.graphics.draw(self.psystem, self.x + 16, self.y + 8)
 end
