@@ -12,6 +12,7 @@ function StartState:update(dt)
         gSounds['confirm']:play()
         if highlighted == 1 then
             gStateMachine:change('serve', {
+                level = 1,
                 paddle = Paddle(1),
                 bricks = LevelMaker.createMap(1),
                 health = 3,

@@ -1,45 +1,38 @@
-ServeState = Class { __includes = BaseState }
+VictoryState = Class { __includes = BaseState }
 
-function ServeState:enter(params)
+function VictoryState:enter(params)
     self.level = params.level
-    self.paddle = params.paddle
-    self.ball = Ball(math.random(7))
-    self.bricks = params.bricks
-    self.health = params.health
     self.score = params.score
+    self.paddle = params.paddle
+    self.health = params.health
+    self.ball = params.ball
 end
 
-function ServeState:update(dt)
+function VictoryState:update(dt)
     self.paddle:update(dt)
     self.ball.x = self.paddle.x + (self.paddle.width / 2) - (self.ball.width / 2)
     self.ball.y = self.paddle.y - self.ball.height
 
     if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
-        gStateMachine:change('play', {
-            level = self.level,
+        gStateMachine:change('serve', {
+            level = self.level + 1,
             paddle = self.paddle,
-            ball = self.ball,
-            bricks = self.bricks,
+            bricks = LevelMaker.createMap(self.level + 1),
             health = self.health,
             score = self.score
         })
     end
-
-    if love.keyboard.wasPressed('escape') then
-        love.event.quit()
-    end
 end
 
-function ServeState:render()
-    for k, brick in pairs(self.bricks) do
-        brick:render()
-    end
-
+function VictoryState:render()
     self.paddle:render()
     self.ball:render()
 
-    renderScore(self.score)
     renderHealth(self.health)
+    renderScore(self.score)
+
+    love.graphics.setFont(gFonts['large'])
+    love.graphics.printf("Level " .. tostring(self.level) .. " complete!", 0, VIRTUAL_HEIGHT / 4, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['medium'])
     love.graphics.printf('Press Enter to serve!', 0, VIRTUAL_HEIGHT / 2, VIRTUAL_WIDTH, 'center')
