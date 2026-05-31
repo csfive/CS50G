@@ -7,6 +7,7 @@ function ServeState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
+    self.highScores = params.highScores
 end
 
 function ServeState:update(dt)
@@ -21,7 +22,8 @@ function ServeState:update(dt)
             ball = self.ball,
             bricks = self.bricks,
             health = self.health,
-            score = self.score
+            score = self.score,
+            highScores = self.highScores
         })
     end
 
@@ -40,6 +42,9 @@ function ServeState:render()
 
     renderScore(self.score)
     renderHealth(self.health)
+
+    love.graphics.setFont(gFonts['large'])
+    love.graphics.printf('Level ' .. tostring(self.level), 0, VIRTUAL_HEIGHT / 3, VIRTUAL_WIDTH, 'center')
 
     love.graphics.setFont(gFonts['medium'])
     love.graphics.printf('Press Enter to serve!', 0, VIRTUAL_HEIGHT / 2, VIRTUAL_WIDTH, 'center')
