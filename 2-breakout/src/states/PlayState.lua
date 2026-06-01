@@ -66,6 +66,7 @@ function PlayState:update(dt)
                     score = self.score,
                     highScores = self.highScores
                 })
+                return
             end
 
             local BALL_RADIUS = 4
@@ -112,6 +113,7 @@ function PlayState:update(dt)
                 highScores = self.highScores
             })
         end
+        return
     end
 
     for k, brick in pairs(self.bricks) do

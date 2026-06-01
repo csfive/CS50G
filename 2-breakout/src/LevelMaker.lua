@@ -1,14 +1,5 @@
 LevelMaker = Class {}
 
-NONE = 1
-SINGLE_PYRAMID = 2
-MULTI_PYRAMID = 3
-
-SOLID = 1     -- all colors the same in this row
-ALTERNATE = 2 -- alternate colors
-SKIP = 3      -- skip every other block
-NONE = 4      -- no blocks this row
-
 function LevelMaker.createMap(level)
     local bricks = {}
 
@@ -39,7 +30,7 @@ function LevelMaker.createMap(level)
                 skipFlag = not skipFlag
             end
 
-            b = Brick(
+            local b = Brick(
                 (x - 1) * 32 + 8 + (13 - numCols) * 16,
                 y * 16
             )

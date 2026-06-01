@@ -26,7 +26,11 @@ function EnterHighScoreState:update(dt)
             scoresStr = scoresStr .. self.highScores[i].name .. '\n'
             scoresStr = scoresStr .. tostring(self.highScores[i].score) .. '\n'
         end
+
+        love.filesystem.setIdentity('breakout')
         love.filesystem.write('breakout.lst', scoresStr)
+        gSounds['confirm']:play()
+
         gStateMachine:change('high-scores', {
             highScores = self.highScores
         })
