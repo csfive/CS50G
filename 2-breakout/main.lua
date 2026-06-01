@@ -61,7 +61,8 @@ function love.load()
         ['serve'] = function() return ServeState() end,
         ['play'] = function() return PlayState() end,
         ['victory'] = function() return VictoryState() end,
-        ['game-over'] = function() return GameOverState() end
+        ['game-over'] = function() return GameOverState() end,
+        ['enter-high-score'] = function() return EnterHighScoreState() end
     }
     gStateMachine:change('start', {
         highScores = loadHighScores()
@@ -144,12 +145,7 @@ function loadHighScores()
         love.filesystem.write('breakout.lst', scores)
     end
 
-    local name = true
-    local currentName = nil
-    local counter = 1
-
     local scores = {}
-
     for i = 1, 10 do
         scores[i] = {
             name = nil,
@@ -157,6 +153,8 @@ function loadHighScores()
         }
     end
 
+    local name = true
+    local counter = 1
     for line in love.filesystem.lines('breakout.lst') do
         if name then
             scores[counter].name = string.sub(line, 1, 3)
