@@ -9,6 +9,7 @@ function PlayState:enter(params)
     self.score = params.score
     self.highScores = params.highScores
     self.recoverPoints = params.recoverPoints
+    self.growPoints = params.growPoints
 
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-50, -60)
@@ -63,6 +64,12 @@ function PlayState:update(dt)
                 gSounds['recover']:play()
             end
 
+            while self.score > self.growPoints do
+                self.paddle:grow()
+                self.growPoints = math.min(100000, self.growPoints * 2)
+                gSounds['recover']:play()
+            end
+
             if self:checkVictory() then
                 gSounds['victory']:play()
                 gStateMachine:change('victory', {
@@ -72,7 +79,8 @@ function PlayState:update(dt)
                     health = self.health,
                     score = self.score,
                     highScores = self.highScores,
-                    recoverPoints = self.recoverPoints
+                    recoverPoints = self.recoverPoints,
+                    growPoints = self.growPoints
                 })
                 return
             end
@@ -105,6 +113,7 @@ function PlayState:update(dt)
     if self.ball.y >= VIRTUAL_HEIGHT then
         self.health = self.health - 1
         gSounds['hurt']:play()
+        self.paddle:shrink()
 
         if self.health == 0 then
             gStateMachine:change('game-over', {
@@ -119,7 +128,8 @@ function PlayState:update(dt)
                 health = self.health,
                 score = self.score,
                 highScores = self.highScores,
-                recoverPoints = self.recoverPoints
+                recoverPoints = self.recoverPoints,
+                growPoints = self.growPoints
             })
         end
         return
