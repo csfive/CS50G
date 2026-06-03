@@ -33,7 +33,7 @@ function Brick:render()
         if self.locked then
             love.graphics.draw(
                 gTextures['main'],
-                gFrames['bricks'][21],
+                gFrames['bricks'][24],
                 self.x, self.y
             )
         else

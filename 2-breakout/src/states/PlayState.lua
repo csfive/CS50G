@@ -88,7 +88,7 @@ function PlayState:update(dt)
 
                 -- spawn powerup when a non-locked brick is destroyed
                 if not brick.inPlay and not brick.locked then
-                    if math.random(1, 10) == 1 then
+                    if math.random(1, 2) == 1 then
                         local hasLocked = false
                         for _, b in pairs(self.bricks) do
                             if b.locked and b.inPlay then
@@ -121,8 +121,8 @@ function PlayState:update(dt)
                         health = self.health,
                         score = self.score,
                         highScores = self.highScores,
-                    recoverPoints = self.recoverPoints,
-                    growPoints = self.growPoints
+                        recoverPoints = self.recoverPoints,
+                        growPoints = self.growPoints
                     })
                     return
                 end
