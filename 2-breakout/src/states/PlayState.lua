@@ -3,7 +3,6 @@ PlayState = Class { __includes = BaseState }
 function PlayState:enter(params)
     self.level = params.level
     self.paddle = params.paddle
-    self.ball = params.ball
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
@@ -11,6 +10,7 @@ function PlayState:enter(params)
     self.recoverPoints = params.recoverPoints
     self.growPoints = params.growPoints
 
+    self.ball = params.ball
     self.ball.dx = math.random(-200, 200)
     self.ball.dy = math.random(-50, -60)
 end
@@ -65,7 +65,7 @@ function PlayState:update(dt)
             end
 
             while self.score > self.growPoints do
-                self.paddle:grow()
+                self.paddle:resize(self.paddle.size + 1)
                 self.growPoints = math.min(100000, self.growPoints * 2)
                 gSounds['recover']:play()
             end
@@ -113,7 +113,8 @@ function PlayState:update(dt)
     if self.ball.y >= VIRTUAL_HEIGHT then
         self.health = self.health - 1
         gSounds['hurt']:play()
-        self.paddle:shrink()
+
+        self.paddle:resize(self.paddle.size - 1)
 
         if self.health == 0 then
             gStateMachine:change('game-over', {

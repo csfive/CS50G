@@ -1,12 +1,5 @@
 Paddle = Class {}
 
-local PADDLE_SIZES = {
-    [1] = 32,
-    [2] = 64,
-    [3] = 96,
-    [4] = 128
-}
-
 function Paddle:init(skin)
     self.x = VIRTUAL_WIDTH / 2 - 32
     self.y = VIRTUAL_HEIGHT - 32
@@ -41,17 +34,9 @@ function Paddle:render()
     )
 end
 
-function Paddle:grow()
-    self.size = math.min(4, self.size + 1)
-    self:updateWidthBySize()
-end
-
-function Paddle:shrink()
-    self.size = math.max(1, self.size - 1)
-    self:updateWidthBySize()
-end
-
-function Paddle:updateWidthBySize()
-    self.width = PADDLE_SIZES[self.size]
+function Paddle:resize(newSize)
+    self.size = math.max(1, math.min(4, newSize))
+    local widths = { [1] = 32, [2] = 64, [3] = 96, [4] = 128 }
+    self.width = widths[self.size]
     self.x = math.min(self.x, VIRTUAL_WIDTH - self.width)
 end
