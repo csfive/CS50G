@@ -16,6 +16,7 @@ function Brick:init(x, y)
     self.tier = 0
     self.color = 1
     self.inPlay = true
+    self.locked = false
 
     self.psystem = love.graphics.newParticleSystem(gTextures['particle'], 64)
     self.psystem:setParticleLifetime(0.5, 1)
@@ -29,15 +30,29 @@ end
 
 function Brick:render()
     if self.inPlay then
-        love.graphics.draw(
-            gTextures['main'],
-            gFrames['bricks'][1 + ((self.color - 1) * 4) + self.tier],
-            self.x, self.y
-        )
+        if self.locked then
+            love.graphics.draw(
+                gTextures['main'],
+                gFrames['bricks'][21],
+                self.x, self.y
+            )
+        else
+            love.graphics.draw(
+                gTextures['main'],
+                gFrames['bricks'][1 + ((self.color - 1) * 4) + self.tier],
+                self.x, self.y
+            )
+        end
     end
 end
 
 function Brick:hit()
+    if self.locked then
+        gSounds['brick-hit-2']:stop()
+        gSounds['brick-hit-2']:play()
+        return
+    end
+
     self.psystem:setColors(
         paletteColors[self.color].r / 255,
         paletteColors[self.color].g / 255,
@@ -63,6 +78,22 @@ function Brick:hit()
     end
 
     if not self.inPlay then
+        gSounds['brick-hit-1']:stop()
+        gSounds['brick-hit-1']:play()
+    end
+end
+
+function Brick:unlock()
+    if self.locked then
+        self.psystem:setColors(
+            1, 1, 1, 1,
+            1, 1, 1, 0
+        )
+        self.psystem:emit(64)
+
+        self.locked = false
+        self.inPlay = false
+
         gSounds['brick-hit-1']:stop()
         gSounds['brick-hit-1']:play()
     end

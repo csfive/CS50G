@@ -88,3 +88,20 @@ function GenerateQuadsBalls(atlas)
 
     return quads
 end
+
+function GenerateQuadsPowerups(atlas)
+    local x = 0
+    local y = 192
+
+    local counter = 1
+    local quads = {}
+
+    for i = 0, 9 do
+        quads[counter] = love.graphics.newQuad(
+            x + i * 16, y, 16, 16, atlas:getDimensions()
+        )
+        counter = counter + 1
+    end
+
+    return quads
+end

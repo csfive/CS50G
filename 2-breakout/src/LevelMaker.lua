@@ -9,6 +9,7 @@ function LevelMaker.createMap(level)
 
     local highestTier = math.min(3, math.floor(level / 5))
     local highestColor = math.min(5, level % 5 + 3)
+    local hasLockedBricks = level > 1 and math.random(1, 2) == 1
 
     for y = 1, numRows do
         local skipPattern = math.random(1, 2) == 1 and true or false
@@ -53,6 +54,14 @@ function LevelMaker.createMap(level)
             table.insert(bricks, b)
 
             ::continue::
+        end
+    end
+
+    if hasLockedBricks then
+        local numLocked = math.random(1, math.min(3, #bricks))
+        for i = 1, numLocked do
+            local idx = math.random(1, #bricks)
+            bricks[idx].locked = true
         end
     end
 

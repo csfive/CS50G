@@ -15,6 +15,7 @@ require 'src.states.EnterHighScoreState'
 require 'src.Paddle'
 require 'src.Ball'
 require 'src.Brick'
+require 'src.Powerup'
 require 'src.LevelMaker'
 
 require 'src.constants'
