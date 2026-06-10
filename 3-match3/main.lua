@@ -19,6 +19,14 @@ function love.load()
     gSounds['music']:setLooping(true)
     gSounds['music']:play()
 
+    gStateMachine = StateMachine {
+        ['start'] = function() return StartState() end,
+        ['begin-game'] = function() return BeginGameState() end,
+        ['play'] = function() return PlayState() end,
+        ['game-over'] = function() return GameOverState() end
+    }
+    gStateMachine:change('start')
+
     backgroundX = 0
     love.keyboard.keysPressed = {}
 end
@@ -45,6 +53,8 @@ function love.update(dt)
         backgroundX = 0
     end
 
+    gStateMachine:update(dt)
+
     love.keyboard.keysPressed = {}
 end
 
@@ -52,5 +62,7 @@ function love.draw()
     push.start()
     love.graphics.setColor(1, 1, 1, 1)
     love.graphics.draw(gTextures['background'], backgroundX, 0)
+
+    gStateMachine:render()
     push.finish()
 end

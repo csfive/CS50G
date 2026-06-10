@@ -4,6 +4,12 @@ Class = require 'libs.class'
 require 'src.StateMachine'
 require 'src.Util'
 
+require 'src.states.BaseState'
+require 'src.states.StartState'
+require 'src.states.BeginGameState'
+require 'src.states.PlayState'
+require 'src.states.GameOverState'
+
 gSounds = {
     ['music'] = love.audio.newSource('sounds/music3.mp3', 'static'),
     ['select'] = love.audio.newSource('sounds/select.wav', 'static'),
