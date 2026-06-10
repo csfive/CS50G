@@ -15,7 +15,6 @@ function StartState:init()
         [5] = { 153 / 255, 229 / 255, 80 / 255, 1 },
         [6] = { 223 / 255, 113 / 255, 38 / 255, 1 }
     }
-
     self.letterTable = {
         { 'M', -108 },
         { 'A', -64 },
@@ -24,18 +23,44 @@ function StartState:init()
         { 'H', 40 },
         { '3', 112 }
     }
-
     self.colorTimer = Timer.every(0.075, function()
         self.colors[0] = self.colors[6]
         for i = 6, 1, -1 do
             self.colors[i] = self.colors[i - 1]
         end
     end)
+    self.currentMenuItem = 1
+    self.pauseInput = false
+    self.transitionAlpha = 0
 end
 
 function StartState:update(dt)
     if love.keyboard.wasPressed('escape') then
         love.event.quit()
+    end
+
+    if not self.pauseInput then
+        if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('down') then
+            self.currentMenuItem = self.currentMenuItem == 1 and 2 or 1
+            gSounds['select']:play()
+        end
+
+        if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            if self.currentMenuItem == 1 then
+                Timer.tween(1, {
+                    [self] = { transitionAlpha = 1 }
+                }):finish(function()
+                    gStateMachine:change('begin-game', {
+                        level = 1
+                    })
+                    self.colorTimer:remove()
+                end)
+            else
+                love.event.quit()
+            end
+
+            self.pauseInput = true
+        end
     end
 
     Timer.update(dt)
@@ -67,6 +92,11 @@ function StartState:render()
     love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
 
     self:drawMatch3Text(-60)
+    self:drawOptions(12)
+
+    love.graphics.setColor(1, 1, 1, self.transitionAlpha)
+    love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
+    love.graphics.setColor(1, 1, 1, 1)
 end
 
 function StartState:drawMatch3Text(y)
@@ -94,5 +124,30 @@ function StartState:drawTextShadow(text, y)
     love.graphics.printf(text, 1, y + 1, VIRTUAL_WIDTH, 'center')
     love.graphics.printf(text, 0, y + 1, VIRTUAL_WIDTH, 'center')
     love.graphics.printf(text, 1, y + 2, VIRTUAL_WIDTH, 'center')
+    love.graphics.setColor(1, 1, 1, 1)
+end
+
+function StartState:drawOptions(y)
+    love.graphics.setColor(1, 1, 1, 128 / 255)
+    love.graphics.rectangle('fill', VIRTUAL_WIDTH / 2 - 76, VIRTUAL_HEIGHT / 2 + y, 150, 58, 6)
+
+    love.graphics.setFont(gFonts['medium'])
+    self:drawTextShadow('Start', VIRTUAL_HEIGHT / 2 + y + 8)
+    if self.currentMenuItem == 1 then
+        love.graphics.setColor(99 / 255, 155 / 255, 1, 1)
+    else
+        love.graphics.setColor(48 / 255, 96 / 255, 130 / 255, 1)
+    end
+    love.graphics.printf('Start', 0, VIRTUAL_HEIGHT / 2 + y + 8, VIRTUAL_WIDTH, 'center')
+
+    love.graphics.setFont(gFonts['medium'])
+    self:drawTextShadow('Quit Game', VIRTUAL_HEIGHT / 2 + y + 33)
+    if self.currentMenuItem == 2 then
+        love.graphics.setColor(99 / 255, 155 / 255, 1, 1)
+    else
+        love.graphics.setColor(48 / 255, 96 / 255, 130 / 255, 1)
+    end
+    love.graphics.printf('Quit Game', 0, VIRTUAL_HEIGHT / 2 + y + 33, VIRTUAL_WIDTH, 'center')
+
     love.graphics.setColor(1, 1, 1, 1)
 end
