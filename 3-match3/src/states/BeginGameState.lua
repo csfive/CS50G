@@ -3,6 +3,7 @@ BeginGameState = Class { __includes = BaseState }
 function BeginGameState:init()
     self.transitionAlpha = 1
     self.levelLabelY = -64
+    self.board = Board(VIRTUAL_HEIGHT - 272, 16)
 end
 
 function BeginGameState:enter(params)
@@ -12,7 +13,13 @@ function BeginGameState:enter(params)
     }):finish(function()
         Timer.tween(0.25, {
             [self] = { levelLabelY = VIRTUAL_HEIGHT / 2 - 8 }
-        })
+        }):finish(function()
+            Timer.after(1, function()
+                Timer.tween(0.25, {
+                    [self] = { levelLabelY = VIRTUAL_HEIGHT + 30 }
+                })
+            end)
+        end)
     end)
 end
 
@@ -21,6 +28,8 @@ function BeginGameState:update(dt)
 end
 
 function BeginGameState:render()
+    self.board:render()
+
     love.graphics.setColor(95 / 255, 205 / 255, 228 / 255, 200 / 255)
     love.graphics.rectangle('fill', 0, self.levelLabelY - 8, VIRTUAL_WIDTH, 48)
     love.graphics.setColor(1, 1, 1, 1)
