@@ -8,6 +8,7 @@ end
 
 function BeginGameState:enter(params)
     self.level = params.level
+
     Timer.tween(1, {
         [self] = { transitionAlpha = 0 }
     }):finish(function()
@@ -17,7 +18,12 @@ function BeginGameState:enter(params)
             Timer.after(1, function()
                 Timer.tween(0.25, {
                     [self] = { levelLabelY = VIRTUAL_HEIGHT + 30 }
-                })
+                }):finish(function()
+                    gStateMachine:change('play', {
+                        level = self.level,
+                        board = self.board
+                    })
+                end)
             end)
         end)
     end)
