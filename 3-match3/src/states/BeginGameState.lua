@@ -3,7 +3,7 @@ BeginGameState = Class { __includes = BaseState }
 function BeginGameState:init()
     self.transitionAlpha = 1
     self.levelLabelY = -64
-    self.board = Board(VIRTUAL_HEIGHT - 272, 16)
+    self.board = Board(VIRTUAL_WIDTH - 272, 16)
 end
 
 function BeginGameState:enter(params)
