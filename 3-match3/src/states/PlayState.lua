@@ -10,6 +10,16 @@ function PlayState:init()
             gSounds['clock']:play()
         end
     end)
+
+    self.canInput = true
+    self.highlightedTile = nil
+    self.boardHighlightX = 0
+    self.boardHighlightY = 0
+    self.rectHighlighted = false
+
+    Timer.every(0.5, function()
+        self.rectHighlighted = not self.rectHighlighted
+    end)
 end
 
 function PlayState:enter(params)
@@ -41,11 +51,111 @@ function PlayState:update(dt)
         })
     end
 
+    if self.canInput then
+        if love.keyboard.wasPressed('up') then
+            self.boardHighlightY = math.max(0, self.boardHighlightY - 1)
+            gSounds['select']:play()
+        elseif love.keyboard.wasPressed('down') then
+            self.boardHighlightY = math.min(7, self.boardHighlightY + 1)
+            gSounds['select']:play()
+        elseif love.keyboard.wasPressed('left') then
+            self.boardHighlightX = math.max(0, self.boardHighlightX - 1)
+            gSounds['select']:play()
+        elseif love.keyboard.wasPressed('right') then
+            self.boardHighlightX = math.min(7, self.boardHighlightX + 1)
+            gSounds['select']:play()
+        end
+
+        if love.keyboard.wasPressed('enter') or love.keyboard.wasPressed('return') then
+            local x = self.boardHighlightX + 1
+            local y = self.boardHighlightY + 1
+
+            if not self.highlightedTile then
+                self.highlightedTile = self.board.tiles[y][x]
+            elseif self.highlightedTile == self.board.tiles[y][x] then
+                self.highlightedTile = nil
+            elseif math.abs(self.highlightedTile.gridX - x) + math.abs(self.highlightedTile.gridY - y) > 1 then
+                gSounds['error']:play()
+                self.highlightedTile = nil
+            else
+                local tempX = self.highlightedTile.gridX
+                local tempY = self.highlightedTile.gridY
+                local newTile = self.board.tiles[y][x]
+
+                self.highlightedTile.gridX = newTile.gridX
+                self.highlightedTile.gridY = newTile.gridY
+                newTile.gridX = tempX
+                newTile.gridY = tempY
+
+                self.board.tiles[self.highlightedTile.gridY][self.highlightedTile.gridX] = self.highlightedTile
+                self.board.tiles[newTile.gridY][newTile.gridX] = newTile
+
+                Timer.tween(0.1, {
+                    [self.highlightedTile] = { x = newTile.x, y = newTile.y },
+                    [newTile] = { x = self.highlightedTile.x, y = self.highlightedTile.y }
+                }):finish(function()
+                    self:calculateMatches()
+                end)
+            end
+        end
+    end
+
     Timer.update(dt)
+end
+
+function PlayState:calculateMatches()
+    self.highlightedTile = nil
+    local matches = self.board:calculateMatches()
+
+    if matches then
+        gSounds['match']:stop()
+        gSounds['match']:play()
+
+        for k, match in pairs(matches) do
+            self.score = self.score + #match * 50
+        end
+
+        self.board:removeMatches()
+
+        local tilesToFall = self.board:getFallingTiles()
+        Timer.tween(0.25, tilesToFall):finish(
+            function()
+                self:calculateMatches()
+            end
+        )
+    else
+        self.canInput = true
+    end
 end
 
 function PlayState:render()
     self.board:render()
+
+    if self.highlightedTile then
+        love.graphics.setBlendMode('add')
+        love.graphics.setColor(1, 1, 1, 96 / 255)
+        love.graphics.rectangle(
+            'fill',
+            (self.highlightedTile.gridX - 1) * 32 + (VIRTUAL_WIDTH - 272),
+            (self.highlightedTile.gridY - 1) * 32 + 16,
+            32, 32, 4
+        )
+        love.graphics.setBlendMode('alpha')
+    end
+
+    if self.rectHighlighted then
+        love.graphics.setColor(217 / 255, 87 / 255, 99 / 255, 1)
+    else
+        love.graphics.setColor(172 / 255, 50 / 255, 50 / 255, 1)
+    end
+
+    love.graphics.setLineWidth(4)
+    love.graphics.rectangle(
+        'line',
+        self.boardHighlightX * 32 + (VIRTUAL_WIDTH - 272),
+        self.boardHighlightY * 32 + 16,
+        32, 32, 4
+    )
     self:renderText()
 end
 
