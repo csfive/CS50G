@@ -29,6 +29,7 @@ function love.load()
 
     backgroundX = 0
     love.keyboard.keysPressed = {}
+    love.mouseButtonsPressed = {}
 end
 
 function love.resize(w, h)
@@ -47,6 +48,18 @@ function love.keyboard.wasPressed(key)
     end
 end
 
+function love.mousepressed(x, y, button)
+    local gameX, gameY = push.toGame(x, y)
+
+    if gameX and gameY then
+        love.mouseButtonsPressed[button] = { x = gameX, y = gameY }
+    end
+end
+
+function love.mouse.wasPressed(button)
+    return love.mouseButtonsPressed[button]
+end
+
 function love.update(dt)
     backgroundX = backgroundX - BACKGROUND_SCROLL_SPEED * dt
     if backgroundX <= -1024 + VIRTUAL_WIDTH - 4 + 51 then
@@ -56,6 +69,7 @@ function love.update(dt)
     gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
+    love.mouseButtonsPressed = {}
 end
 
 function love.draw()
