@@ -3,11 +3,12 @@ BeginGameState = Class { __includes = BaseState }
 function BeginGameState:init()
     self.transitionAlpha = 1
     self.levelLabelY = -64
-    self.board = Board(VIRTUAL_WIDTH - 272, 16)
 end
 
 function BeginGameState:enter(params)
     self.level = params.level
+    self.score = params.score or 0
+    self.board = Board(VIRTUAL_WIDTH - 272, 16, self.level)
 
     Timer.tween(1, {
         [self] = { transitionAlpha = 0 }
@@ -21,7 +22,8 @@ function BeginGameState:enter(params)
                 }):finish(function()
                     gStateMachine:change('play', {
                         level = self.level,
-                        board = self.board
+                        board = self.board,
+                        score = self.score
                     })
                 end)
             end)
