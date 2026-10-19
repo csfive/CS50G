@@ -1,6 +1,6 @@
 <div align="center">
 
-# CS50G · 2D Game Development
+# Harvard CS50G · 2D Game Development
 
 **EN** · [中](./README.md)
 
@@ -22,11 +22,11 @@ A repo for learning [CS50's Introduction to 2D Game Development](https://cs50.ha
 
 | Resource   | Link (Week 0 as example)                                                                                                                                                 |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Course     | <https://cs50.harvard.edu/games/>                                                                                                                                        |
+| Course     | [CS50 2D](https://cs50.harvard.edu/games)                                                                                                                                |
 | Lectures   | [YouTube playlist](https://www.youtube.com/playlist?list=PLhQjrBD2T380FZyaKIkZYuZWe2B1UHilA) · [CS50 Video Player](https://video.cs50.io/MY2y3dDwgMk?screen=0hk8ubOAsv8) |
 | Notes      | [notes](https://cs50.harvard.edu/games/notes/0/) · [slides (PDF)](https://cdn.cs50.net/2d/2025/x/lectures/0/lecture0.pdf)                                                |
 | Source     | [github.com/games50](https://github.com/games50) · [source zip](https://cdn.cs50.net/2d/2025/x/lectures/0/src0.zip)                                                      |
-| My notes   | <https://csfive.netlify.app/cs50g/0-pong> · [repo](https://github.com/csfive/home)                                                                                       |
+| My notes   | [view online](https://csfive.netlify.app/cs50g/0-pong) · [repo](https://github.com/csfive/home)                                                                          |
 | LÖVE / Lua | [love2d.org](https://love2d.org/) · [LÖVE Wiki](https://love2d.org/wiki/Main_Page) · [Lua 5.1 reference](https://www.lua.org/manual/5.1/)                                |
 
 ## Progress

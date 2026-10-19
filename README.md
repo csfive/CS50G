@@ -1,6 +1,6 @@
 <div align="center">
 
-# CS50G · 2D 游戏开发
+# Harvard CS50G · 2D 游戏开发
 
 **中** · [English](./README.en.md)
 
@@ -22,11 +22,11 @@
 
 | 资源       | 链接（以 Week 0 示例）                                                                                                                                                   |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 课程主页   | <https://cs50.harvard.edu/games/>                                                                                                                                        |
+| 课程主页   | [CS50 2D](https://cs50.harvard.edu/games)                                                                                                                                |
 | 讲座视频   | [YouTube 播放列表](https://www.youtube.com/playlist?list=PLhQjrBD2T380FZyaKIkZYuZWe2B1UHilA) · [CS50 Video Player](https://video.cs50.io/MY2y3dDwgMk?screen=0hk8ubOAsv8) |
 | 官方讲义   | [notes](https://cs50.harvard.edu/games/notes/0/) · [slides (PDF)](https://cdn.cs50.net/2d/2025/x/lectures/0/lecture0.pdf)                                                |
 | 官方源码   | [github.com/games50](https://github.com/games50) · [源码 zip](https://cdn.cs50.net/2d/2025/x/lectures/0/src0.zip)                                                        |
-| 我的笔记   | <https://csfive.netlify.app/cs50g/0-pong> · [仓库](https://github.com/csfive/home)                                                                                       |
+| 我的笔记   | [在线查看](https://csfive.netlify.app/cs50g/0-pong) · [仓库](https://github.com/csfive/home)                                                                             |
 | LÖVE / Lua | [love2d.org](https://love2d.org/) · [LÖVE Wiki](https://love2d.org/wiki/Main_Page) · [Lua 5.1 手册](https://www.lua.org/manual/5.1/)                                     |
 
 ## 进度
