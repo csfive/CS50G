@@ -1,0 +1,13 @@
+{
+  "[lua]": {
+    "editor.defaultFormatter": "JohnnyMorganz.stylua",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
+  },
+  "stylua.styluaPath": "/opt/homebrew/bin/stylua",
+  "stylua.searchParentDirectories": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "python-envs.defaultEnvManager": "ms-python.python:system"
+}
