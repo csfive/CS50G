@@ -5,8 +5,8 @@
 **EN** · [中](./README.md)
 
 [![CS50][cs50-src]][cs50-href]
-[![Lua][lua-src]][lua-href]
 [![LÖVE][love-src]][love-href]
+[![Lua][lua-src]][lua-href]
 [![Notes][notes-src]][notes-href]
 
 </div>
@@ -20,41 +20,41 @@ A repo for learning [CS50's Introduction to 2D Game Development](https://cs50.ha
 
 ## Links
 
-| Resource   | Link (Week 0 as example)                                                                                                                                                 |
+| Resource   | Link                                                                                                                                                                     |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | Course     | [CS50 2D](https://cs50.harvard.edu/games)                                                                                                                                |
 | Lectures   | [YouTube playlist](https://www.youtube.com/playlist?list=PLhQjrBD2T380FZyaKIkZYuZWe2B1UHilA) · [CS50 Video Player](https://video.cs50.io/MY2y3dDwgMk?screen=0hk8ubOAsv8) |
-| Notes      | [notes](https://cs50.harvard.edu/games/notes/0/) · [slides (PDF)](https://cdn.cs50.net/2d/2025/x/lectures/0/lecture0.pdf)                                                |
-| Source     | [github.com/games50](https://github.com/games50) · [source zip](https://cdn.cs50.net/2d/2025/x/lectures/0/src0.zip)                                                      |
+| Notes      | [Week 0 notes](https://cs50.harvard.edu/games/notes/0/) · [slides (PDF)](https://cdn.cs50.net/2d/2025/x/lectures/0/lecture0.pdf)                                         |
+| Source     | [github.com/games50](https://github.com/games50) · [Week 0 source zip](https://cdn.cs50.net/2d/2025/x/lectures/0/src0.zip)                                               |
 | My notes   | [view online](https://csfive.netlify.app/cs50g/00) · [repo](https://github.com/csfive/home)                                                                              |
 | LÖVE / Lua | [love2d.org](https://love2d.org/) · [LÖVE Wiki](https://love2d.org/wiki/Main_Page) · [Lua 5.1 reference](https://www.lua.org/manual/5.1/)                                |
 
 ## Progress
 
-| Week | Project                                                      | Spec                                                        | Code              | Notes                                                | Status |
-| ---- | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------- | ---------------------------------------------------- | ------ |
-| 0    | [Pong](https://cs50.harvard.edu/games/weeks/0/)              | [Spec](https://cs50.harvard.edu/games/projects/0/pong/)     | `00-pong/`        | [Notes](https://csfive.netlify.app/cs50g/00)         | ⬜     |
-| 1    | [Flappy Bird](https://cs50.harvard.edu/games/weeks/1/)       | [Spec](https://cs50.harvard.edu/games/projects/1/flappy/)   | `01-flappy-bird/` | [Notes](https://csfive.netlify.app/cs50g/01)         | ⬜     |
-| 2    | [Breakout](https://cs50.harvard.edu/games/weeks/2/)          | [Spec](https://cs50.harvard.edu/games/projects/2/breakout/) | `02-breakout/`    | [Notes](https://csfive.netlify.app/cs50g/02)         | ⬜     |
-| 3    | [Match 3](https://cs50.harvard.edu/games/weeks/3/)           | [Spec](https://cs50.harvard.edu/games/projects/3/match/)    | `03-match3/`      | [Notes](https://csfive.netlify.app/cs50g/03)         | ⬜     |
-| 4    | [Super Mario Bros.](https://cs50.harvard.edu/games/weeks/4/) | [Spec](https://cs50.harvard.edu/games/projects/4/mario/)    | `04-mario/`       | [Notes](https://csfive.netlify.app/cs50g/04)         | ⬜     |
-| 5    | [Legend of Zelda](https://cs50.harvard.edu/games/weeks/5/)   | [Spec](https://cs50.harvard.edu/games/projects/5/zelda/)    | `05-zelda/`       | [Notes](https://csfive.netlify.app/cs50g/05)         | ⬜     |
-| 6    | [Angry Birds](https://cs50.harvard.edu/games/weeks/6/)       | [Spec](https://cs50.harvard.edu/games/projects/6/angry/)    | `06-angry-birds/` | [Notes](https://csfive.netlify.app/cs50g/06)         | ⬜     |
-| 7    | [Pokémon](https://cs50.harvard.edu/games/weeks/7/)           | [Spec](https://cs50.harvard.edu/games/projects/7/pokemon/)  | `07-pokemon/`     | [Notes](https://csfive.netlify.app/cs50g/07)         | ⬜     |
-| ✦    | [Final Project](https://cs50.harvard.edu/games/final/)       | [Spec](https://cs50.harvard.edu/games/final/)               | `final/`          | —                                                    | ⬜     |
+| Week | Project                                                      | Assignment                                                  | Code              | Notes                                        | Status |
+| ---- | ------------------------------------------------------------ | ----------------------------------------------------------- | ----------------- | -------------------------------------------- | ------ |
+| 0    | [Pong](https://cs50.harvard.edu/games/weeks/0/)              | [Spec](https://cs50.harvard.edu/games/projects/0/pong/)     | `00-pong/`        | [Notes](https://csfive.netlify.app/cs50g/00) | ⬜     |
+| 1    | [Flappy Bird](https://cs50.harvard.edu/games/weeks/1/)       | [Spec](https://cs50.harvard.edu/games/projects/1/flappy/)   | `01-flappy-bird/` | [Notes](https://csfive.netlify.app/cs50g/01) | ⬜     |
+| 2    | [Breakout](https://cs50.harvard.edu/games/weeks/2/)          | [Spec](https://cs50.harvard.edu/games/projects/2/breakout/) | `02-breakout/`    | [Notes](https://csfive.netlify.app/cs50g/02) | ⬜     |
+| 3    | [Match 3](https://cs50.harvard.edu/games/weeks/3/)           | [Spec](https://cs50.harvard.edu/games/projects/3/match/)    | `03-match3/`      | [Notes](https://csfive.netlify.app/cs50g/03) | ⬜     |
+| 4    | [Super Mario Bros.](https://cs50.harvard.edu/games/weeks/4/) | [Spec](https://cs50.harvard.edu/games/projects/4/mario/)    | `04-mario/`       | [Notes](https://csfive.netlify.app/cs50g/04) | ⬜     |
+| 5    | [Legend of Zelda](https://cs50.harvard.edu/games/weeks/5/)   | [Spec](https://cs50.harvard.edu/games/projects/5/zelda/)    | `05-zelda/`       | [Notes](https://csfive.netlify.app/cs50g/05) | ⬜     |
+| 6    | [Angry Birds](https://cs50.harvard.edu/games/weeks/6/)       | [Spec](https://cs50.harvard.edu/games/projects/6/angry/)    | `06-angry-birds/` | [Notes](https://csfive.netlify.app/cs50g/06) | ⬜     |
+| 7    | [Pokémon](https://cs50.harvard.edu/games/weeks/7/)           | [Spec](https://cs50.harvard.edu/games/projects/7/pokemon/)  | `07-pokemon/`     | [Notes](https://csfive.netlify.app/cs50g/07) | ⬜     |
+| ✦    | [Final Project](https://cs50.harvard.edu/games/final/)       | [Spec](https://cs50.harvard.edu/games/final/)               | `final/`          | —                                            | ⬜     |
 
 Status: ⬜ Not started · 🚧 In progress · ✅ Done
 
 ## Setup & run
 
-Requires [LÖVE](https://love2d.org/) **11.5** (current stable), which bundles LuaJIT / Lua 5.1.
+Requires [LÖVE](https://love2d.org/) **11.5** (current stable), which bundles LuaJIT 2.1 (Lua 5.1 semantics). On macOS install it with Homebrew; for other platforms see the [download page](https://love2d.org/).
 
 ```bash
 # macOS
 brew install --cask love
 
 # run a week
-love 0-pong
+love 00-pong
 ```
 
 ## Credits & license
