@@ -10,4 +10,4 @@ space_after_function_names = "Never"
 block_newline_gaps = "Never"
 
 [sort_requires]
-enabled = true
+enabled = false
