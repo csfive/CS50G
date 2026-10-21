@@ -3,5 +3,5 @@
   "runtime.version": "LuaJIT",
   "workspace.library": ["${3rd}/love2d/library"],
   "workspace.checkThirdParty": false,
-  "diagnostics.globals": ["push"]
+  "diagnostics.disable": ["duplicate-set-field"]
 }
