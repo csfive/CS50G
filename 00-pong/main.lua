@@ -1,5 +1,6 @@
 local push = require('push')
 local Paddle = require('Paddle')
+local Ball = require('Ball')
 
 local VIRTUAL_WIDTH = 432
 local VIRTUAL_HEIGHT = 243
@@ -26,11 +27,22 @@ local PALETTE = {
 
 local fonts = {}
 local player1, player2
+local ball
 
 local function displayFPS()
     love.graphics.setFont(fonts.small)
     love.graphics.setColor(PALETTE.accent)
     love.graphics.print('FPS: ' .. love.timer.getFPS(), HUD_PADDING, HUD_PADDING)
+end
+
+local function handlePaddleInput(paddle, upKey, downKey)
+    if love.keyboard.isDown(upKey) then
+        paddle.dy = -PADDLE_SPEED
+    elseif love.keyboard.isDown(downKey) then
+        paddle.dy = PADDLE_SPEED
+    else
+        paddle.dy = 0
+    end
 end
 
 function love.load()
@@ -49,27 +61,16 @@ function love.load()
         PADDLE_WIDTH,
         PADDLE_HEIGHT
     )
+    ball = Ball(VIRTUAL_WIDTH / 2 - BALL_SIZE / 2, VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2, BALL_SIZE, BALL_SIZE)
 end
 
 function love.update(dt)
-    if love.keyboard.isDown('w') then
-        player1.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('s') then
-        player1.dy = PADDLE_SPEED
-    else
-        player1.dy = 0
-    end
-
-    if love.keyboard.isDown('up') then
-        player2.dy = -PADDLE_SPEED
-    elseif love.keyboard.isDown('down') then
-        player2.dy = PADDLE_SPEED
-    else
-        player2.dy = 0
-    end
+    handlePaddleInput(player1, 'w', 's')
+    handlePaddleInput(player2, 'up', 'down')
 
     player1:update(dt, VIRTUAL_HEIGHT)
     player2:update(dt, VIRTUAL_HEIGHT)
+    ball:update(dt)
 end
 
 function love.draw()
@@ -79,6 +80,7 @@ function love.draw()
     love.graphics.setColor(PALETTE.text)
     player1:render()
     player2:render()
+    ball:render()
 
     displayFPS()
 
