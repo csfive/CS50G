@@ -10,9 +10,11 @@
 
 </div>
 
-CS50 2D（原名 CS50G）是哈佛 [CS50x](https://github.com/csfive/CS50x) 之后的课：用 Lua + LÖVE 一周做一个经典游戏，从 Pong、Flappy Bird、Breakout 一直到马里奥、塞尔达、宝可梦，最后交一个自选的 Final Project。讲的是 2D 图形、动画、音效和碰撞检测这些每个游戏都绕不开的东西。
+CS50 2D（原名 CS50G）是哈佛 [CS50x](https://github.com/csfive/CS50x) 的后续课程，从零拆解童年经典游戏的底层实现，搞清楚一个 2D 游戏到底是怎么跑起来的。
 
-这是 [@mancuoj](https://github.com/mancuoj) 自学的代码仓库：每个 Project（包含作业）一个目录，不一定照搬课程代码，更多是按自己的理解重写。
+课程共八周，使用 Lua 与 LÖVE 2D 框架，每周动手复刻一款经典游戏——从 Pong、Flappy Bird、Breakout、三消，一路做到马里奥、塞尔达、愤怒的小鸟和宝可梦，涵盖游戏循环、2D 渲染、精灵动画、音效、碰撞检测、状态机与关卡生成等核心机制，最后完成一个自选的 Final Project。
+
+仓库里是 [@mancuoj](https://github.com/mancuoj) 自学时的项目与作业代码，每周一个目录；实现上不完全照搬课程源码，更多是按自己的理解重写。
 
 ## 相关链接
 
@@ -55,7 +57,7 @@ love 00-pong
 
 ## 致谢与许可
 
-课程由 **Colton Ogden** 与 **David J. Malan** 讲授，课程材料（讲义、素材、示例代码）版权归 CS50 所有，遵循 [CC BY-NC-SA 4.0](https://cs50.harvard.edu/games/license/)。本仓库中的代码为个人跟做练习，仅供学习参考。
+课程由 **Colton Ogden** 与 **David J. Malan** 讲授，课程材料（讲义、素材、示例代码）版权归 CS50 所有，遵循 [CC BY-NC-SA 4.0](https://cs50.harvard.edu/games/license/)。本仓库为个人学习记录，仅供参考。
 
 <!-- Badges -->
 

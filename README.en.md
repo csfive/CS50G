@@ -10,9 +10,11 @@
 
 </div>
 
-CS50 2D (formerly CS50G) is Harvard's course after [CS50x](https://github.com/csfive/CS50x): one classic game per week with Lua + LÖVE, from Pong, Flappy Bird and Breakout through Mario, Zelda and Pokémon, ending in a project of your own. It covers the 2D graphics, animation, sound and collision detection that every game runs into.
+CS50 2D (formerly CS50G) picks up where Harvard's [CS50x](https://github.com/csfive/CS50x) leaves off, dissecting childhood classics from scratch to see how 2D games actually work under the hood.
 
-This repo is [@mancuoj](https://github.com/mancuoj)'s code from self-studying the course: one directory per project (assignments included) — not necessarily a copy of the course code, more often a rewrite from my own understanding.
+Across eight weeks with Lua and the LÖVE 2D framework, each lecture builds a classic game—from Pong, Flappy Bird, Breakout, and Match 3 to Super Mario Bros., Legend of Zelda, Angry Birds, and Pokémon—covering game loops, 2D rendering, sprite animation, sound, collision detection, state machines, and procedural level generation, before wrapping up with an open-ended Final Project.
+
+This repo holds [@mancuoj](https://github.com/mancuoj)'s project and assignment code from self-studying the course, one directory per week. Rather than copying the distribution code verbatim, most projects are rewritten from my own understanding.
 
 ## Links
 
