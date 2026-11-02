@@ -2,6 +2,8 @@ local push = require('push')
 local Paddle = require('Paddle')
 local Ball = require('Ball')
 
+local WINDOW_WIDTH = 1280
+local WINDOW_HEIGHT = 720
 local VIRTUAL_WIDTH = 432
 local VIRTUAL_HEIGHT = 243
 local PADDLE_WIDTH = 5
@@ -47,12 +49,17 @@ end
 
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
+    love.window.setTitle('Pong')
+    love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
+        resizable = true,
+        fullscreen = false,
+        vsync = true,
+    })
+    push.setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, { upscale = 'normal' })
 
     fonts.small = love.graphics.newFont('font.ttf', FONT_SIZES.small)
     fonts.large = love.graphics.newFont('font.ttf', FONT_SIZES.large)
     fonts.score = love.graphics.newFont('font.ttf', FONT_SIZES.score)
-
-    push.setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, { upscale = 'normal' })
 
     player1 = Paddle(PADDLE_INSET, PADDLE_TOP_MARGIN, PADDLE_WIDTH, PADDLE_HEIGHT)
     player2 = Paddle(
