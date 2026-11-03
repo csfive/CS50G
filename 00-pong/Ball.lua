@@ -19,4 +19,23 @@ function Ball:render()
     love.graphics.rectangle('fill', self.x, self.y, self.size, self.size)
 end
 
+function Ball:reset(x, y)
+    self.x = x
+    self.y = y
+    self.dx = 0
+    self.dy = 0
+end
+
+function Ball:collides(paddle)
+    if self.x >= paddle.x + paddle.width or paddle.x >= self.x + self.size then
+        return false
+    end
+
+    if self.y >= paddle.y + paddle.height or paddle.y >= self.y + self.size then
+        return false
+    end
+
+    return true
+end
+
 return Ball
