@@ -11,6 +11,7 @@ local PADDLE_HEIGHT = 20
 local PADDLE_SPEED = 200
 local AI_GAIN = 20
 local PADDLE_INSET = 10
+local PADDLE_START_Y = (VIRTUAL_HEIGHT - PADDLE_HEIGHT) / 2
 local BALL_SIZE = 4
 local BALL_MAX_SPEED = 480
 local WINNING_SCORE = 10
@@ -130,9 +131,8 @@ function love.load()
     sounds.wall_hit = love.audio.newSource('sounds/wall_hit.wav', 'static')
     sounds.score = love.audio.newSource('sounds/score.wav', 'static')
 
-    local paddleY = (VIRTUAL_HEIGHT - PADDLE_HEIGHT) / 2
-    player1 = Paddle(PADDLE_INSET, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT)
-    player2 = Paddle(VIRTUAL_WIDTH - PADDLE_WIDTH - PADDLE_INSET, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT)
+    player1 = Paddle(PADDLE_INSET, PADDLE_START_Y, PADDLE_WIDTH, PADDLE_HEIGHT)
+    player2 = Paddle(VIRTUAL_WIDTH - PADDLE_WIDTH - PADDLE_INSET, PADDLE_START_Y, PADDLE_WIDTH, PADDLE_HEIGHT)
     ball = Ball(VIRTUAL_WIDTH / 2 - BALL_SIZE / 2, VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2, BALL_SIZE)
 end
 
@@ -237,6 +237,8 @@ function love.keypressed(key)
             winningPlayer = nil
             player1Score = 0
             player2Score = 0
+            player1.y, player1.dy = PADDLE_START_Y, 0
+            player2.y, player2.dy = PADDLE_START_Y, 0
             beginServe()
         end
     end
