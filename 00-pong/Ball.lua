@@ -10,15 +10,6 @@ function Ball:init(x, y, size)
     self.dy = 0
 end
 
-function Ball:update(dt)
-    self.x = self.x + self.dx * dt
-    self.y = self.y + self.dy * dt
-end
-
-function Ball:render()
-    love.graphics.rectangle('fill', self.x, self.y, self.size, self.size)
-end
-
 function Ball:reset(x, y)
     self.x = x
     self.y = y
@@ -36,6 +27,15 @@ function Ball:collides(paddle)
     end
 
     return true
+end
+
+function Ball:update(dt)
+    self.x = self.x + self.dx * dt
+    self.y = self.y + self.dy * dt
+end
+
+function Ball:render()
+    love.graphics.rectangle('fill', self.x, self.y, self.size, self.size)
 end
 
 return Ball

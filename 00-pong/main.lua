@@ -35,12 +35,6 @@ local player2Score = 0
 local servingPlayer = 1
 local winningPlayer
 
-local function displayFPS()
-    love.graphics.setFont(fonts.small)
-    love.graphics.setColor(PALETTE.accent)
-    love.graphics.print('FPS: ' .. love.timer.getFPS(), HUD_PADDING, HUD_PADDING)
-end
-
 local function handlePaddleInput(paddle, upKey, downKey)
     if love.keyboard.isDown(upKey) then
         paddle.dy = -PADDLE_SPEED
@@ -57,13 +51,23 @@ end
 
 local function beginServe()
     resetBall()
-    gameState = 'serve'
-
     ball.dy = math.random(-50, 50)
     if servingPlayer == 1 then
         ball.dx = math.random(140, 200)
     else
         ball.dx = -math.random(140, 200)
+    end
+    gameState = 'serve'
+end
+
+local function reflectBall(correctedX)
+    ball.dx = -ball.dx * 1.03 -- speed up 3% per hit
+    ball.x = correctedX
+
+    if ball.dy < 0 then
+        ball.dy = -math.random(10, 150)
+    else
+        ball.dy = math.random(10, 150)
     end
 end
 
@@ -104,6 +108,12 @@ function love.update(dt)
 
     ball:update(dt)
 
+    if ball:collides(player1) then
+        reflectBall(player1.x + player1.width)
+    elseif ball:collides(player2) then
+        reflectBall(player2.x - ball.size)
+    end
+
     if ball.y <= 0 then
         ball.y = 0
         ball.dy = -ball.dy
@@ -111,6 +121,12 @@ function love.update(dt)
         ball.y = VIRTUAL_HEIGHT - ball.size
         ball.dy = -ball.dy
     end
+end
+
+local function displayFPS()
+    love.graphics.setFont(fonts.small)
+    love.graphics.setColor(PALETTE.accent)
+    love.graphics.print('FPS: ' .. love.timer.getFPS(), HUD_PADDING, HUD_PADDING)
 end
 
 function love.draw()
@@ -128,7 +144,6 @@ function love.draw()
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
     end
 
-    love.graphics.setColor(PALETTE.text)
     player1:render()
     player2:render()
     ball:render()
