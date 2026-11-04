@@ -11,6 +11,7 @@ local PADDLE_HEIGHT = 20
 local PADDLE_SPEED = 200
 local PADDLE_INSET = 10
 local BALL_SIZE = 4
+local BALL_MAX_SPEED = 480
 local WINNING_SCORE = 10
 
 local FONT_SIZES = {
@@ -49,6 +50,11 @@ end
 
 -- Assignment AI: chase only an incoming ball, ignore small offsets, else recenter.
 local function updateAIPaddle()
+    if gameState == 'start' or gameState == 'done' then
+        player2.dy = 0
+        return
+    end
+
     local targetY = VIRTUAL_HEIGHT / 2
     if ball.dx > 0 then
         targetY = ball.y + ball.size / 2
@@ -80,7 +86,7 @@ local function beginServe()
 end
 
 local function reflectBall(correctedX)
-    ball.dx = -ball.dx * 1.03
+    ball.dx = math.max(-BALL_MAX_SPEED, math.min(BALL_MAX_SPEED, -ball.dx * 1.03))
     ball.x = correctedX
 
     if ball.dy < 0 then
@@ -129,17 +135,15 @@ function love.load()
     sounds.wall_hit = love.audio.newSource('sounds/wall_hit.wav', 'static')
     sounds.score = love.audio.newSource('sounds/score.wav', 'static')
 
-    player1 = Paddle(PADDLE_INSET, 30, PADDLE_WIDTH, PADDLE_HEIGHT)
-    player2 = Paddle(
-        VIRTUAL_WIDTH - PADDLE_WIDTH - PADDLE_INSET,
-        VIRTUAL_HEIGHT - PADDLE_HEIGHT - 10,
-        PADDLE_WIDTH,
-        PADDLE_HEIGHT
-    )
+    local paddleY = (VIRTUAL_HEIGHT - PADDLE_HEIGHT) / 2
+    player1 = Paddle(PADDLE_INSET, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT)
+    player2 = Paddle(VIRTUAL_WIDTH - PADDLE_WIDTH - PADDLE_INSET, paddleY, PADDLE_WIDTH, PADDLE_HEIGHT)
     ball = Ball(VIRTUAL_WIDTH / 2 - BALL_SIZE / 2, VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2, BALL_SIZE)
 end
 
 function love.update(dt)
+    dt = math.min(dt, 1 / 60)
+
     handlePaddleInput(player1, 'w', 's')
     updateAIPaddle()
 
@@ -176,10 +180,12 @@ function love.update(dt)
 end
 
 local function displayScore()
+    local scoreY = VIRTUAL_HEIGHT / 3
+    local boxWidth = 100
     love.graphics.setFont(fonts.score)
     love.graphics.setColor(PALETTE.text)
-    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
-    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
+    love.graphics.printf(tostring(player1Score), VIRTUAL_WIDTH / 2 - boxWidth, scoreY, boxWidth, 'center')
+    love.graphics.printf(tostring(player2Score), VIRTUAL_WIDTH / 2, scoreY, boxWidth, 'center')
 end
 
 local function displayFPS()
