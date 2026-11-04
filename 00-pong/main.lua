@@ -47,6 +47,25 @@ local function handlePaddleInput(paddle, upKey, downKey)
     end
 end
 
+-- Player 2 is AI-controlled: chase the ball's center only while it flies
+-- toward this paddle, keep a small dead zone to avoid jitter, and drift back
+-- to the middle of the screen when the ball is heading away.
+local function updateAIPaddle()
+    local targetY = VIRTUAL_HEIGHT / 2
+    if ball.dx > 0 then
+        targetY = ball.y + ball.size / 2
+    end
+
+    local paddleCenterY = player2.y + player2.height / 2
+    if targetY < paddleCenterY - 4 then
+        player2.dy = -PADDLE_SPEED
+    elseif targetY > paddleCenterY + 4 then
+        player2.dy = PADDLE_SPEED
+    else
+        player2.dy = 0
+    end
+end
+
 local function resetBall()
     ball:reset(VIRTUAL_WIDTH / 2 - BALL_SIZE / 2, VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2)
 end
@@ -124,7 +143,7 @@ end
 
 function love.update(dt)
     handlePaddleInput(player1, 'w', 's')
-    handlePaddleInput(player2, 'up', 'down')
+    updateAIPaddle()
 
     player1:update(dt, VIRTUAL_HEIGHT)
     player2:update(dt, VIRTUAL_HEIGHT)
