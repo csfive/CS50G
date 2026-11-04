@@ -1,0 +1,30 @@
+return {
+    WINDOW_WIDTH = 1280,
+    WINDOW_HEIGHT = 720,
+
+    VIRTUAL_WIDTH = 512,
+    VIRTUAL_HEIGHT = 288,
+
+    BACKGROUND_SCROLL_SPEED = 30,
+    GROUND_SCROLL_SPEED = 60,
+    BACKGROUND_LOOPING_POINT = 413,
+    GROUND_HEIGHT = 16,
+
+    PIPE_SPEED = 60,
+    PIPE_WIDTH = 70,
+    PIPE_HEIGHT = 288,
+    PIPE_GAP_MIN = 80,
+    PIPE_GAP_MAX = 110,
+    PIPE_SPAWN_MIN = 1.6,
+    PIPE_SPAWN_MAX = 2.6,
+    PIPE_Y_JITTER = 20,
+
+    GRAVITY = 980,
+    FLAP_VELOCITY = -300,
+
+    MEDAL_THRESHOLDS = {
+        bronze = 3,
+        silver = 6,
+        gold = 10,
+    },
+}
