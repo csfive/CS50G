@@ -47,9 +47,7 @@ local function handlePaddleInput(paddle, upKey, downKey)
     end
 end
 
--- Player 2 is AI-controlled: chase the ball's center only while it flies
--- toward this paddle, keep a small dead zone to avoid jitter, and drift back
--- to the middle of the screen when the ball is heading away.
+-- Assignment AI: chase only an incoming ball, ignore small offsets, else recenter.
 local function updateAIPaddle()
     local targetY = VIRTUAL_HEIGHT / 2
     if ball.dx > 0 then
@@ -82,7 +80,7 @@ local function beginServe()
 end
 
 local function reflectBall(correctedX)
-    ball.dx = -ball.dx * 1.03 -- speed up 3% per hit
+    ball.dx = -ball.dx * 1.03
     ball.x = correctedX
 
     if ball.dy < 0 then
