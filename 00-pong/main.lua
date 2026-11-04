@@ -203,6 +203,7 @@ function love.draw()
         love.graphics.setFont(fonts.small)
         love.graphics.printf('Welcome to Pong!', 0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press Enter to begin!', 0, 20, VIRTUAL_WIDTH, 'center')
+        love.graphics.printf('W/S to move - AI plays right', 0, 30, VIRTUAL_WIDTH, 'center')
     elseif gameState == 'serve' then
         love.graphics.setFont(fonts.small)
         love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
