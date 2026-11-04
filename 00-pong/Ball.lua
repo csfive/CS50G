@@ -3,11 +3,8 @@ local Class = require('class')
 local Ball = Class({})
 
 function Ball:init(x, y, size)
-    self.x = x
-    self.y = y
     self.size = size
-    self.dx = 0
-    self.dy = 0
+    self:reset(x, y)
 end
 
 function Ball:reset(x, y)

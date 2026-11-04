@@ -9,11 +9,11 @@ local VIRTUAL_HEIGHT = 243
 local PADDLE_WIDTH = 5
 local PADDLE_HEIGHT = 20
 local PADDLE_SPEED = 200
-local AI_GAIN = 20
 local PADDLE_INSET = 10
 local PADDLE_START_Y = (VIRTUAL_HEIGHT - PADDLE_HEIGHT) / 2
 local BALL_SIZE = 4
 local BALL_MAX_SPEED = 480
+local AI_TRACKING_GAIN = 20
 local WINNING_SCORE = 10
 
 local FONT_SIZES = {
@@ -63,7 +63,7 @@ local function updateAIPaddle()
     end
 
     local offset = targetY - (player2.y + player2.height / 2)
-    player2.dy = math.max(-PADDLE_SPEED, math.min(PADDLE_SPEED, offset * AI_GAIN))
+    player2.dy = math.max(-PADDLE_SPEED, math.min(PADDLE_SPEED, offset * AI_TRACKING_GAIN))
 end
 
 local function resetBall()
@@ -176,17 +176,17 @@ end
 
 local function displayScore()
     local scoreY = VIRTUAL_HEIGHT / 3
-    local boxWidth = 100
+    local scoreBoxWidth = 100
     love.graphics.setFont(fonts.score)
     love.graphics.setColor(PALETTE.text)
-    love.graphics.printf(tostring(player1Score), VIRTUAL_WIDTH / 2 - boxWidth, scoreY, boxWidth, 'center')
-    love.graphics.printf(tostring(player2Score), VIRTUAL_WIDTH / 2, scoreY, boxWidth, 'center')
+    love.graphics.printf(tostring(player1Score), VIRTUAL_WIDTH / 2 - scoreBoxWidth, scoreY, scoreBoxWidth, 'center')
+    love.graphics.printf(tostring(player2Score), VIRTUAL_WIDTH / 2, scoreY, scoreBoxWidth, 'center')
 end
 
 local function displayFPS()
     love.graphics.setFont(fonts.small)
     love.graphics.setColor(PALETTE.accent)
-    love.graphics.print('FPS: ' .. love.timer.getFPS(), HUD_PADDING, HUD_PADDING)
+    love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), HUD_PADDING, HUD_PADDING)
 end
 
 function love.draw()
