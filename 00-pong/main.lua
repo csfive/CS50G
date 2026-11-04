@@ -227,7 +227,7 @@ end
 function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
-    elseif key == 'return' then
+    elseif key == 'return' or key == 'kpenter' then
         if gameState == 'start' then
             beginServe()
         elseif gameState == 'serve' then
