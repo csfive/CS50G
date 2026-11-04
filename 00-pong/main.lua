@@ -11,6 +11,7 @@ local PADDLE_HEIGHT = 20
 local PADDLE_SPEED = 200
 local PADDLE_INSET = 10
 local BALL_SIZE = 4
+local WINNING_SCORE = 10
 
 local FONT_SIZES = {
     small = 8,
@@ -78,8 +79,14 @@ local function awardPoint(scoringPlayer)
         player2Score = player2Score + 1
     end
 
-    servingPlayer = scoringPlayer == 1 and 2 or 1
-    beginServe()
+    if player1Score >= WINNING_SCORE or player2Score >= WINNING_SCORE then
+        winningPlayer = scoringPlayer
+        gameState = 'done'
+        resetBall()
+    else
+        servingPlayer = scoringPlayer == 1 and 2 or 1
+        beginServe()
+    end
 end
 
 function love.load()
@@ -166,6 +173,11 @@ function love.draw()
         love.graphics.setFont(fonts.small)
         love.graphics.printf('Player ' .. tostring(servingPlayer) .. "'s serve!", 0, 10, VIRTUAL_WIDTH, 'center')
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
+    elseif gameState == 'done' then
+        love.graphics.setFont(fonts.large)
+        love.graphics.printf('Player ' .. tostring(winningPlayer) .. ' wins!', 0, 10, VIRTUAL_WIDTH, 'center')
+        love.graphics.setFont(fonts.small)
+        love.graphics.printf('Press Enter to restart!', 0, 30, VIRTUAL_WIDTH, 'center')
     end
 
     displayScore()
@@ -190,6 +202,12 @@ function love.keypressed(key)
             beginServe()
         elseif gameState == 'serve' then
             gameState = 'play'
+        elseif gameState == 'done' then
+            servingPlayer = winningPlayer == 1 and 2 or 1
+            winningPlayer = nil
+            player1Score = 0
+            player2Score = 0
+            beginServe()
         end
     end
 end
