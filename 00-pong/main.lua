@@ -9,6 +9,7 @@ local VIRTUAL_HEIGHT = 243
 local PADDLE_WIDTH = 5
 local PADDLE_HEIGHT = 20
 local PADDLE_SPEED = 200
+local AI_GAIN = 20
 local PADDLE_INSET = 10
 local BALL_SIZE = 4
 local BALL_MAX_SPEED = 480
@@ -48,7 +49,7 @@ local function handlePaddleInput(paddle, upKey, downKey)
     end
 end
 
--- Assignment AI: chase only an incoming ball, ignore small offsets, else recenter.
+-- Assignment AI: steer toward an incoming ball, recenter otherwise.
 local function updateAIPaddle()
     if gameState == 'start' or gameState == 'done' then
         player2.dy = 0
@@ -60,14 +61,8 @@ local function updateAIPaddle()
         targetY = ball.y + ball.size / 2
     end
 
-    local paddleCenterY = player2.y + player2.height / 2
-    if targetY < paddleCenterY - 4 then
-        player2.dy = -PADDLE_SPEED
-    elseif targetY > paddleCenterY + 4 then
-        player2.dy = PADDLE_SPEED
-    else
-        player2.dy = 0
-    end
+    local offset = targetY - (player2.y + player2.height / 2)
+    player2.dy = math.max(-PADDLE_SPEED, math.min(PADDLE_SPEED, offset * AI_GAIN))
 end
 
 local function resetBall()
