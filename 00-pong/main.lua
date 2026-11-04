@@ -72,11 +72,11 @@ end
 
 local function beginServe()
     resetBall()
-    ball.dy = math.random(-50, 50)
+    ball.dy = love.math.random(-50, 50)
     if servingPlayer == 1 then
-        ball.dx = math.random(140, 200)
+        ball.dx = love.math.random(140, 200)
     else
-        ball.dx = -math.random(140, 200)
+        ball.dx = -love.math.random(140, 200)
     end
     gameState = 'serve'
 end
@@ -86,9 +86,9 @@ local function reflectBall(correctedX)
     ball.x = correctedX
 
     if ball.dy < 0 then
-        ball.dy = -math.random(10, 150)
+        ball.dy = -love.math.random(10, 150)
     else
-        ball.dy = math.random(10, 150)
+        ball.dy = love.math.random(10, 150)
     end
 
     sounds.paddle_hit:play()
