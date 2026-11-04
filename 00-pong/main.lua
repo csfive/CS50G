@@ -105,8 +105,8 @@ local function awardPoint(scoringPlayer)
 
     if player1Score >= WINNING_SCORE or player2Score >= WINNING_SCORE then
         winningPlayer = scoringPlayer
-        gameState = 'done'
         resetBall()
+        gameState = 'done'
     else
         servingPlayer = scoringPlayer == 1 and 2 or 1
         beginServe()
