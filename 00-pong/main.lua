@@ -71,6 +71,17 @@ local function reflectBall(correctedX)
     end
 end
 
+local function awardPoint(scoringPlayer)
+    if scoringPlayer == 1 then
+        player1Score = player1Score + 1
+    else
+        player2Score = player2Score + 1
+    end
+
+    servingPlayer = scoringPlayer == 1 and 2 or 1
+    beginServe()
+end
+
 function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Pong')
@@ -121,6 +132,19 @@ function love.update(dt)
         ball.y = VIRTUAL_HEIGHT - ball.size
         ball.dy = -ball.dy
     end
+
+    if ball.x < 0 then
+        awardPoint(2)
+    elseif ball.x > VIRTUAL_WIDTH then
+        awardPoint(1)
+    end
+end
+
+local function displayScore()
+    love.graphics.setFont(fonts.score)
+    love.graphics.setColor(PALETTE.text)
+    love.graphics.print(tostring(player1Score), VIRTUAL_WIDTH / 2 - 50, VIRTUAL_HEIGHT / 3)
+    love.graphics.print(tostring(player2Score), VIRTUAL_WIDTH / 2 + 30, VIRTUAL_HEIGHT / 3)
 end
 
 local function displayFPS()
@@ -144,6 +168,7 @@ function love.draw()
         love.graphics.printf('Press Enter to serve!', 0, 20, VIRTUAL_WIDTH, 'center')
     end
 
+    displayScore()
     player1:render()
     player2:render()
     ball:render()
