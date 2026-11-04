@@ -31,7 +31,7 @@ This repo holds [@mancuoj](https://github.com/mancuoj)'s project and assignment 
 
 | Week | Project                                                      | Assignment                                                  | Code                                  | Notes                                        | Status |
 | ---- | ------------------------------------------------------------ | ----------------------------------------------------------- | ------------------------------------- | -------------------------------------------- | ------ |
-| 0    | [Pong](https://cs50.harvard.edu/games/weeks/0/)              | [Spec](https://cs50.harvard.edu/games/projects/0/pong/)     | [`00-pong/`](./00-pong)               | [Notes](https://csfive.netlify.app/cs50g/00) | 🚧     |
+| 0    | [Pong](https://cs50.harvard.edu/games/weeks/0/)              | [Spec](https://cs50.harvard.edu/games/projects/0/pong/)     | [`00-pong/`](./00-pong)               | [Notes](https://csfive.netlify.app/cs50g/00) | ✅     |
 | 1    | [Flappy Bird](https://cs50.harvard.edu/games/weeks/1/)       | [Spec](https://cs50.harvard.edu/games/projects/1/flappy/)   | [`01-flappy-bird/`](./01-flappy-bird) | [Notes](https://csfive.netlify.app/cs50g/01) | ⬜     |
 | 2    | [Breakout](https://cs50.harvard.edu/games/weeks/2/)          | [Spec](https://cs50.harvard.edu/games/projects/2/breakout/) | [`02-breakout/`](./02-breakout)       | [Notes](https://csfive.netlify.app/cs50g/02) | ⬜     |
 | 3    | [Match 3](https://cs50.harvard.edu/games/weeks/3/)           | [Spec](https://cs50.harvard.edu/games/projects/3/match/)    | [`03-match3/`](./03-match3)           | [Notes](https://csfive.netlify.app/cs50g/03) | ⬜     |
