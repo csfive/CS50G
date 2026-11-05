@@ -1,31 +1,31 @@
-local Input = {
+local input = {
     keys = {},
     mouseButtons = {},
 }
 
-function Input.keypressed(key)
-    Input.keys[key] = true
+function input.keypressed(key)
+    input.keys[key] = true
 end
 
-function Input.mousepressed(button)
-    Input.mouseButtons[button] = true
+function input.mousepressed(button)
+    input.mouseButtons[button] = true
 end
 
-function Input.wasPressed(key)
-    return Input.keys[key] == true
+function input.wasPressed(key)
+    return input.keys[key] == true
 end
 
-function Input.mouseWasPressed(button)
-    return Input.mouseButtons[button] == true
+function input.mouseWasPressed(button)
+    return input.mouseButtons[button] == true
 end
 
-function Input.confirmPressed()
-    return Input.wasPressed('return') or Input.wasPressed('kpenter')
+function input.confirmPressed()
+    return input.wasPressed('return') or input.wasPressed('kpenter')
 end
 
-function Input.clear()
-    Input.keys = {}
-    Input.mouseButtons = {}
+function input.clear()
+    input.keys = {}
+    input.mouseButtons = {}
 end
 
-return Input
+return input

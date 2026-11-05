@@ -1,7 +1,7 @@
 local Class = require('class')
 local BaseState = require('states.BaseState')
-local Config = require('config')
-local Assets = require('assets')
+local config = require('config')
+local assets = require('assets')
 
 local COUNTDOWN_TIME = 0.75
 
@@ -27,8 +27,8 @@ function CountdownState:update(dt)
 end
 
 function CountdownState:render()
-    love.graphics.setFont(Assets.fonts.huge)
-    love.graphics.printf(tostring(self.count), 0, 110, Config.VIRTUAL_WIDTH, 'center')
+    love.graphics.setFont(assets.fonts.huge)
+    love.graphics.printf(tostring(self.count), 0, 110, config.VIRTUAL_WIDTH, 'center')
 end
 
 return CountdownState

@@ -1,16 +1,16 @@
 local Class = require('class')
-local Config = require('config')
-local Assets = require('assets')
-local Input = require('input')
+local config = require('config')
+local assets = require('assets')
+local input = require('input')
 
 local Bird = Class({})
 
 function Bird:init()
-    self.image = Assets.textures.bird
+    self.image = assets.textures.bird
     self.width = self.image:getWidth()
     self.height = self.image:getHeight()
-    self.x = Config.VIRTUAL_WIDTH / 2 - self.width / 2
-    self.y = Config.VIRTUAL_HEIGHT / 2 - self.height / 2
+    self.x = config.VIRTUAL_WIDTH / 2 - self.width / 2
+    self.y = config.VIRTUAL_HEIGHT / 2 - self.height / 2
     self.dy = 0
 end
 
@@ -22,11 +22,11 @@ function Bird:collides(pipe)
 end
 
 function Bird:update(dt)
-    self.dy = self.dy + Config.GRAVITY * dt
+    self.dy = self.dy + config.GRAVITY * dt
 
-    if Input.wasPressed('space') or Input.mouseWasPressed(1) then
-        self.dy = Config.FLAP_VELOCITY
-        Assets.sounds.jump:play()
+    if input.wasPressed('space') or input.mouseWasPressed(1) then
+        self.dy = config.FLAP_VELOCITY
+        assets.sounds.jump:play()
     end
 
     self.y = self.y + self.dy * dt

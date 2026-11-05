@@ -1,14 +1,14 @@
 local Class = require('class')
 local BaseState = require('states.BaseState')
-local Config = require('config')
-local Assets = require('assets')
+local config = require('config')
+local assets = require('assets')
 local Bird = require('Bird')
 local PipePair = require('PipePair')
 
 local PlayState = Class({ __includes = BaseState })
 
 local function randomSpawnInterval()
-    return Config.PIPE_SPAWN_MIN + love.math.random() * (Config.PIPE_SPAWN_MAX - Config.PIPE_SPAWN_MIN)
+    return config.PIPE_SPAWN_MIN + love.math.random() * (config.PIPE_SPAWN_MAX - config.PIPE_SPAWN_MIN)
 end
 
 function PlayState:init(stateMachine)
@@ -18,12 +18,12 @@ function PlayState:init(stateMachine)
     self.spawnTimer = 0
     self.spawnInterval = randomSpawnInterval()
     self.score = 0
-    self.lastY = -Config.PIPE_HEIGHT + love.math.random(80) + 20
+    self.lastY = -config.PIPE_HEIGHT + love.math.random(80) + 20
 end
 
 function PlayState:die()
-    Assets.sounds.explosion:play()
-    Assets.sounds.hurt:play()
+    assets.sounds.explosion:play()
+    assets.sounds.hurt:play()
     self.stateMachine:change('score', { score = self.score })
 end
 
@@ -32,12 +32,12 @@ function PlayState:update(dt)
 
     if self.spawnTimer >= self.spawnInterval then
         -- Assignment: randomize both the vertical gap and the spawn interval.
-        local gapHeight = love.math.random(Config.PIPE_GAP_MIN, Config.PIPE_GAP_MAX)
+        local gapHeight = love.math.random(config.PIPE_GAP_MIN, config.PIPE_GAP_MAX)
         local y = math.max(
-            -Config.PIPE_HEIGHT + 10,
+            -config.PIPE_HEIGHT + 10,
             math.min(
-                self.lastY + love.math.random(-Config.PIPE_Y_JITTER, Config.PIPE_Y_JITTER),
-                Config.VIRTUAL_HEIGHT - gapHeight - Config.PIPE_HEIGHT
+                self.lastY + love.math.random(-config.PIPE_Y_JITTER, config.PIPE_Y_JITTER),
+                config.VIRTUAL_HEIGHT - gapHeight - config.PIPE_HEIGHT
             )
         )
         self.lastY = y
@@ -53,10 +53,10 @@ function PlayState:update(dt)
     for _, pair in pairs(self.pipePairs) do
         pair:update(dt)
 
-        if not pair.scored and pair.x + Config.PIPE_WIDTH < self.bird.x then
+        if not pair.scored and pair.x + config.PIPE_WIDTH < self.bird.x then
             self.score = self.score + 1
             pair.scored = true
-            Assets.sounds.score:play()
+            assets.sounds.score:play()
         end
     end
 
@@ -73,7 +73,7 @@ function PlayState:update(dt)
         end
     end
 
-    if self.bird.y + self.bird.height > Config.VIRTUAL_HEIGHT - Config.GROUND_HEIGHT then
+    if self.bird.y + self.bird.height > config.VIRTUAL_HEIGHT - config.GROUND_HEIGHT then
         self:die()
     end
 end
@@ -85,7 +85,7 @@ function PlayState:render()
 
     self.bird:render()
 
-    love.graphics.setFont(Assets.fonts.flappy)
+    love.graphics.setFont(assets.fonts.flappy)
     love.graphics.print('Score: ' .. tostring(self.score), 8, 8)
 end
 
