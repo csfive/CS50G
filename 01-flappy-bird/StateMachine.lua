@@ -4,10 +4,10 @@ local StateMachine = Class({})
 
 function StateMachine:init(states)
     self.empty = {
-        enter = function() end,
-        exit = function() end,
-        update = function() end,
-        render = function() end,
+        enter = function(_, params) end,
+        exit = function(_) end,
+        update = function(_, dt) end,
+        render = function(_) end,
     }
     self.states = states or {}
     self.current = self.empty
