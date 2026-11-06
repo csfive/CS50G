@@ -11,7 +11,6 @@ local ScoreState = require('states.ScoreState')
 local backgroundScroll = 0
 local groundScroll = 0
 local paused = false
-local stateMachine
 
 local function togglePause()
     paused = not paused
@@ -54,21 +53,21 @@ function love.load()
     assets.sounds.music:setLooping(true)
     assets.sounds.music:play()
 
-    stateMachine = StateMachine({
+    gStateMachine = StateMachine({
         title = function()
-            return TitleScreenState(stateMachine)
+            return TitleScreenState()
         end,
         countdown = function()
-            return CountdownState(stateMachine)
+            return CountdownState()
         end,
         play = function()
-            return PlayState(stateMachine)
+            return PlayState()
         end,
         score = function()
-            return ScoreState(stateMachine)
+            return ScoreState()
         end,
     })
-    stateMachine:change('title')
+    gStateMachine:change('title')
 end
 
 function love.resize(w, h)
@@ -91,8 +90,8 @@ function love.mousepressed(x, y, button)
 end
 
 function love.focus(focused)
-    if not focused and stateMachine and not paused then
-        local name = stateMachine.currentName
+    if not focused and gStateMachine and not paused then
+        local name = gStateMachine.currentName
         if name == 'play' or name == 'countdown' then
             togglePause()
         end
@@ -107,12 +106,12 @@ function love.update(dt)
         return
     end
 
-    if stateMachine.currentName ~= 'score' then
+    if gStateMachine.currentName ~= 'score' then
         backgroundScroll = (backgroundScroll + config.BACKGROUND_SCROLL_SPEED * dt) % config.BACKGROUND_LOOPING_POINT
         groundScroll = (groundScroll + config.GROUND_SCROLL_SPEED * dt) % config.VIRTUAL_WIDTH
     end
 
-    stateMachine:update(dt)
+    gStateMachine:update(dt)
     input.clear()
 end
 
@@ -120,7 +119,7 @@ function love.draw()
     push.start()
 
     love.graphics.draw(assets.textures.background, -backgroundScroll, 0)
-    stateMachine:render()
+    gStateMachine:render()
     love.graphics.draw(assets.textures.ground, -groundScroll, config.VIRTUAL_HEIGHT - config.GROUND_HEIGHT)
 
     if paused then

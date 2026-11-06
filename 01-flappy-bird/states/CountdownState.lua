@@ -7,8 +7,7 @@ local COUNTDOWN_TIME = 0.75
 
 local CountdownState = Class({ __includes = BaseState })
 
-function CountdownState:init(stateMachine)
-    self.stateMachine = stateMachine
+function CountdownState:init()
     self.count = 3
     self.timer = 0
 end
@@ -21,7 +20,7 @@ function CountdownState:update(dt)
         self.count = self.count - 1
 
         if self.count == 0 then
-            self.stateMachine:change('play')
+            gStateMachine:change('play')
         end
     end
 end

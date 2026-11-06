@@ -6,13 +6,9 @@ local input = require('input')
 
 local TitleScreenState = Class({ __includes = BaseState })
 
-function TitleScreenState:init(stateMachine)
-    self.stateMachine = stateMachine
-end
-
 function TitleScreenState:update(dt)
     if input.confirmPressed() then
-        self.stateMachine:change('countdown')
+        gStateMachine:change('countdown')
     end
 end
 

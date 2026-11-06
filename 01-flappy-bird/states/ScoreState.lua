@@ -12,8 +12,7 @@ local MEDALS = {
 
 local ScoreState = Class({ __includes = BaseState })
 
-function ScoreState:init(stateMachine)
-    self.stateMachine = stateMachine
+function ScoreState:init()
     self.score = 0
     self.medal = nil
 end
@@ -33,7 +32,7 @@ end
 
 function ScoreState:update(dt)
     if input.confirmPressed() then
-        self.stateMachine:change('countdown')
+        gStateMachine:change('countdown')
     end
 end
 

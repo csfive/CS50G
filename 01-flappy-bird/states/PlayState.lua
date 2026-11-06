@@ -11,8 +11,7 @@ local function randomSpawnInterval()
     return config.PIPE_SPAWN_MIN + love.math.random() * (config.PIPE_SPAWN_MAX - config.PIPE_SPAWN_MIN)
 end
 
-function PlayState:init(stateMachine)
-    self.stateMachine = stateMachine
+function PlayState:init()
     self.bird = Bird()
     self.pipePairs = {}
     self.spawnTimer = 0
@@ -24,7 +23,7 @@ end
 function PlayState:die()
     assets.sounds.explosion:play()
     assets.sounds.hurt:play()
-    self.stateMachine:change('score', { score = self.score })
+    gStateMachine:change('score', { score = self.score })
 end
 
 function PlayState:update(dt)
