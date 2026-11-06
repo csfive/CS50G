@@ -50,7 +50,7 @@ function PlayState:update(dt)
 
     self.bird:update(dt)
 
-    for _, pair in pairs(self.pipePairs) do
+    for _, pair in ipairs(self.pipePairs) do
         pair:update(dt)
 
         if not pair.scored and pair.x + config.PIPE_WIDTH < self.bird.x then
@@ -66,7 +66,7 @@ function PlayState:update(dt)
         end
     end
 
-    for _, pair in pairs(self.pipePairs) do
+    for _, pair in ipairs(self.pipePairs) do
         if self.bird:collides(pair.upper) or self.bird:collides(pair.lower) then
             self:die()
             return
@@ -79,7 +79,7 @@ function PlayState:update(dt)
 end
 
 function PlayState:render()
-    for _, pair in pairs(self.pipePairs) do
+    for _, pair in ipairs(self.pipePairs) do
         pair:render()
     end
 

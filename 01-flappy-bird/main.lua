@@ -90,6 +90,15 @@ function love.mousepressed(x, y, button)
     input.mousepressed(button)
 end
 
+function love.focus(focused)
+    if not focused and stateMachine and not paused then
+        local name = stateMachine.currentName
+        if name == 'play' or name == 'countdown' then
+            togglePause()
+        end
+    end
+end
+
 function love.update(dt)
     dt = math.min(dt, 1 / 60)
 

@@ -6,7 +6,6 @@ local PipePair = Class({})
 
 function PipePair:init(y, gapHeight)
     self.x = config.VIRTUAL_WIDTH + 32
-    self.y = y
     self.gapHeight = gapHeight
     self.scored = false
     self.remove = false
