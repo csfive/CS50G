@@ -4,9 +4,9 @@ local StateMachine = Class({})
 
 function StateMachine:init(states)
     self.empty = {
-        enter = function(_, params) end,
+        enter = function(_, _params) end,
         exit = function(_) end,
-        update = function(_, dt) end,
+        update = function(_, _dt) end,
         render = function(_) end,
     }
     self.states = states or {}
